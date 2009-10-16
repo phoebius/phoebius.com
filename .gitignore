@@ -1,0 +1,5 @@
+.*
+!.keepdir
+
+tmp/*
+!tmp/.keepdir
