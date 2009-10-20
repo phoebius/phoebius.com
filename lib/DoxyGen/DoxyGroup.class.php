@@ -75,6 +75,14 @@ class DoxyGroup
 	}
 
 	/**
+	 * @return string|null
+	 */
+	function getAbout()
+	{
+		return $this->about;
+	}
+
+	/**
 	 * @return DoxyGroup
 	 */
 	function setVersion($version = null)
@@ -89,7 +97,7 @@ class DoxyGroup
 	/**
 	 * @return string
 	 */
-	function getGroup()
+	function getGid()
 	{
 		return $this->gid;
 	}
@@ -152,14 +160,14 @@ class DoxyGroup
 
 	private function generateGid()
 	{
-		if ($this->parent && ($parentGroup = $this->parent->getGroup())) {
-			$group = $parentGroup . '_' . $this->id;
+		if ($this->parent && ($parentGid = $this->parent->getGid())) {
+			$gid = $parentGid . '_' . $this->id;
 		}
 		else {
-			$group = $this->id;
+			$gid = $this->id;
 		}
 
-		return $group;
+		return $gid;
 	}
 }
 

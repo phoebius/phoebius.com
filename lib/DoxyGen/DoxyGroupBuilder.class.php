@@ -26,14 +26,6 @@ abstract class DoxyGroupBuilder
 	 */
 	abstract function build();
 
-	/**
-	 * @return DoxyGroupBuilder
-	 */
-	static function create(DoxyGroup $rootDoxyGroup = null)
-	{
-		return new self ($rootDoxyGroup);
-	}
-
 	function __construct(DoxyGroup $rootDoxyGroup = null)
 	{
 		$this->rootDoxyGroup =

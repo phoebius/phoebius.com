@@ -19,7 +19,7 @@ p, ul, ol {
 h1, h2, h3, h4 { 
   font-weight:normal; 
   margin-bottom:0.5em;
-  line-height:1.5em;
+  line-height:1.1em;
 }
 
 h1 { font-size:1.9em;}
@@ -63,8 +63,8 @@ a.selected:hover, a.selected:focus { color:#333; font-weight:bold; text-decorati
 .info-panel a:hover, .info-panel a:focus,
 .pathway a:hover, .pathway a:focus { color: #ffa800;}
 
-.navigation a, .navigation a:visited { color:#fff; }
-.navigation a:hover, .navigation a:focus { color: #ffa800;} 
+ul.navigation a, ul.navigation a:visited { color:#fff; }
+ul.navigation a:hover, ul.navigation a:focus { color: #ffa800;} 
 
 .navigation a.selected, .navigation a.selected:visited,
 .navigation a.selected:hover, .navigation a.selected:focus { color:#ffa800; font-weight:bold; text-decoration:none;}
@@ -235,7 +235,7 @@ img { border:none; }
   .rpanel p, .rpanel ul, .rpanel ol, .sitemap ul { font-size:0.85em; }
   .article ul, .article ol { margin-left:1.5em; }
   
-  .article code, .article pre { font-family:"Courier New", Courier, monospace;}
+  .article code, .article pre { font-family:Consolas, "Courier New", Courier, monospace;}
   .article pre { font-size: 0.85em;}
    
   .article h4.code  { 

@@ -13,9 +13,16 @@
     text-align:left;
     padding-top:1em;
     font-size:2.2em;
-  }
   
-  h2 { font-size:1.3em; }
+  }
+  .contents h1 small {
+  	font-size:0.5em;
+   
+}
+
+
+  
+  h2 { font-size:1.3em;}
   
   td h2 { font-size:1.6em; }
   
@@ -34,11 +41,11 @@
   /*Links*/
   a{ color:#006699;}
   a:visited { color: #552b7e;}
-  a:hover, a:focus { color: #63c051;}
+  a:hover, a:focus { color: #ffa800;}
   
   a.anchor { color:#000000;}
   
-  a.el { font-family:"Courier New", Courier, monospace; }
+  a.el { font-family:Consolas, "Courier New", Courier, monospace; }
 	
 	p.plain {
 		padding: 0px 0 0 12px;
@@ -49,7 +56,7 @@
 	}
 	
 	p.miniFixed {
-		font-family: "courier new";
+		font-family: Consolas, "courier new";
 	}
 	
 	p.damnSmall {
@@ -171,7 +178,7 @@
   
   table.memname  code { color:#999999; }
   
-  table.memname td { padding: 0; font-family:"Courier New", Courier, monospace;   } 
+  table.memname td { padding: 0; font-family:Consolas, "Courier New", Courier, monospace;   } 
   
   .memproto code { font-size:1.2em;}
   
@@ -262,14 +269,14 @@ div.tabs a {
 } 
 
 div.tabs a:link, div.tabs a:visited { color:#333; }
-div.tabs a:active, div.tabs a:hover { color: #63c051;}
+div.tabs a:active, div.tabs a:hover { color: #ffa800;}
 
 div.tabs li.current a {
   background-position:none;
   border-width:0;
   font-weight:bold;
   text-decoration:none;
-  color: #63c051;
+  color: #ffa800;
 }
 
 div.tabs span {

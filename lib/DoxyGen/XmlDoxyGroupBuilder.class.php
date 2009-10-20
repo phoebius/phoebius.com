@@ -18,6 +18,14 @@ class XmlDoxyGroupBuilder extends DoxyGroupBuilder
 	 */
 	private $xmlElement;
 
+	/**
+	 * @return XmlDoxyGroupBuilder
+	 */
+	static function create($xmlFilename, DoxyGroup $rootDoxyGroup = null)
+	{
+		return new self ($xmlFilename, $rootDoxyGroup);
+	}
+
 	function __construct($xmlFilename, DoxyGroup $rootDoxyGroup = null)
 	{
 		Assert::isScalar($xmlFilename);

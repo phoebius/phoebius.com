@@ -32,9 +32,26 @@ try
 		APP_SLOT . DIRECTORY_SEPARATOR .
 		'config.php';
 
-	//
-	// your stuff goes here
-	//
+	$rootDoxyGroup =
+		XmlDoxyGroupBuilder::create(PHOEBIUS_SITE_DOCS_SRC_PATH . '/xml/other/groups.xml')
+			->build();
+
+	$header = new TempFile;
+	DoxyHeaderBuilder::create($rootDoxyGroup)
+		->build($header);
+
+	$doxyGen = new DoxyGen(
+		PHOEBIUS_SITE_DOXYGEN_PARTS_PATH . '/doxygen.conf'
+	);
+
+	$doxyGen->addInputPath($header->getPath());
+	$doxyGen->addInputPath(PHOEBIUS_SITE_FRAMEWORK_SRC_PATH . '/lib');
+
+	FSUtils::cleanDirectory(PHOEBIUS_SITE_API_PATH);
+
+	$doxyGen->make(PHOEBIUS_SITE_API_PATH);
+
+	echo 'Done';
 }
 catch (ExecutionContextException $e)
 {
