@@ -37,8 +37,8 @@ try
 			->build();
 
 	$header = new TempFile;
-	DoxyHeaderBuilder::create($rootDoxyGroup)
-		->build($header);
+	DoxyHeaderWriter::create($rootDoxyGroup)
+		->write($header);
 
 	$doxyGen = new DoxyGen(
 		PHOEBIUS_SITE_DOXYGEN_PARTS_PATH . '/doxygen.conf'
