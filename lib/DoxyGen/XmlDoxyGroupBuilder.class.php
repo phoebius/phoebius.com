@@ -9,6 +9,9 @@
  *
  ************************************************************************************************/
 
+/**
+ * @ingroup DoxyGen
+ */
 class XmlDoxyGroupBuilder extends DoxyGroupBuilder
 {
 	private $xmlFilename;
@@ -74,7 +77,7 @@ class XmlDoxyGroupBuilder extends DoxyGroupBuilder
 	 * @return DoxyGroup
 	 */
 	private function traverseGroup(
-			SimpleXMLElement $container,
+			SmartSimpleXmlElement $container,
 			DoxyGroup $parent
 	) {
 		$group = $this->makeGroup($container, $parent);
@@ -94,7 +97,7 @@ class XmlDoxyGroupBuilder extends DoxyGroupBuilder
 	 * @return DoxyGroup
 	 */
 	private function makeGroup(
-			SimpleXMLElement $container,
+			SmartSimpleXmlElement $container,
 			DoxyGroup $parent
 	) {
 		$group = new DoxyGroup(
@@ -114,7 +117,11 @@ class XmlDoxyGroupBuilder extends DoxyGroupBuilder
 		}
 
 		if (isset($container->about)) {
-			$group->setAbout((string)$container->about);
+			$group->setAbout(
+				htmlspecialchars(
+					htmlSpecialChars($container->about->getCdata())
+				)
+			);
 		}
 
 		return $group;
@@ -133,13 +140,11 @@ class XmlDoxyGroupBuilder extends DoxyGroupBuilder
 	 */
 	private function load()
 	{
-		chdir(dirname($this->xmlFilename));
-		$xmlContents = file_get_contents($this->xmlFilename);
-
 		try {
-			$this->xmlElement = new SimpleXmlElement(
-				$xmlContents,
-				LIBXML_DTDATTR | LIBXML_DTDLOAD | LIBXML_DTDVALID
+			$this->xmlElement = new SmartSimpleXmlElement(
+				$this->xmlFilename,
+				LIBXML_DTDATTR | LIBXML_DTDLOAD | LIBXML_DTDVALID | LIBXML_NOBLANKS | LIBXML_NOCDATA,
+				true
 			);
 		}
 		catch (ExecutionContextException $e) {
