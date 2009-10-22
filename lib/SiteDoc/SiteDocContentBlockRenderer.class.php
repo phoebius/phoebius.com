@@ -1,0 +1,158 @@
+<?php
+/* ***********************************************************************************************
+ *
+ * Phoebius Framework
+ *
+ * **********************************************************************************************
+ *
+ * Copyright (c) 2009 phoebius.org
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms
+ * of the GNU Lesser General Public License as published by the Free Software Foundation;
+ * either version 3 of the License, or (at your option) any later version.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with
+ * this program; if not, see <http://www.gnu.org/licenses/>.
+ *
+ ************************************************************************************************/
+
+/**
+ * @ingroup SiteDoc
+ */
+class SiteDocContentBlockRenderer
+{
+	/**
+	 * For headers
+	 * @var int
+	 */
+	private $level = 2;
+
+	/**
+	 * @return SiteDocContentBlockRenderer
+	 */
+	function spawnNested()
+	{
+		$clone = clone $this;
+		$clone->level++;
+
+		return $clone;
+	}
+
+	/**
+	 * @return string
+	 */
+	function getTitle($title)
+	{
+		Assert::isScalar($title);
+
+		return "<h{$this->level}>{$title}</h{$this->level}>";
+	}
+
+	/**
+	 * @return string
+	 */
+	function renderParagraph(DOMElement $node)
+	{
+		Assert::isTrue(
+			$node->tagName == 'p'
+		);
+
+		return $this->wrap($node);
+	}
+
+	private function renderInnerNodes(DOMNode $node)
+	{
+		$yield = '';
+
+		if (isset($node->childNodes)) {
+			for ($i = 0; $i < $node->childNodes->length; $i++) {
+				$yield .= $this->renderNode($node->childNodes->item($i));
+			}
+		}
+
+		return $yield;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function renderNode(DOMNode $node)
+	{
+		switch ($node->nodeType) {
+			case XML_CDATA_SECTION_NODE: {
+				Assert::notImplemented(
+					'cdata is not yet parsed by %s, pass LIBXML_NOCDATA to SXML ctor',
+					__CLASS__
+				);
+			}
+			case XML_TEXT_NODE: {
+				return htmlspecialchars($node->nodeValue);
+			}
+			case XML_ELEMENT_NODE: {
+				return $this->renderElementNode($node);
+			}
+			default: {
+				Assert::isUnreachable(
+					'not-renderable node type: %s (name: %s)',
+					$node->nodeType,
+					$node->nodeName
+				);
+			}
+		}
+	}
+
+	/**
+	 * @return string
+	 */
+	private function renderElementNode(DOMElement $node)
+	{
+		switch ($node->tagName) {
+			case 'link': {
+				return $this->renderLink($node);
+			}
+
+			case 'code-block': {
+				return $this->renderCode($node);
+			}
+
+			default: {
+				return $this->wrap($node);
+			}
+		}
+	}
+
+	/**
+	 * @return string
+	 */
+	private function renderLink(DOMElement $node)
+	{
+		return
+			'<a href="' . $node->getAttribute('to') . '">'
+			. $this->renderInnerNodes($node)
+			. '</a>';
+	}
+
+	/**
+	 * FIXME: take "lang" attr into consideration
+	 * @return string
+	 */
+	private function renderCodeBlock(DOMElement $node)
+	{
+		return
+			'<pre class="source">'
+			. '<h4 class="code">'
+			. $this->renderInnerNodes($node)
+			. '</h4>'
+			. '</pre>';
+	}
+
+	/**
+	 * @return string
+	 */
+	private function wrap(DOMElement $node)
+	{
+		return "<{$node->tagName}>" . $this->renderInnerNodes($node) . "</{$node->tagName}>";
+	}
+}
+
+?>
