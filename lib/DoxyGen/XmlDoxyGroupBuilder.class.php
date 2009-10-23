@@ -143,7 +143,7 @@ class XmlDoxyGroupBuilder extends DoxyGroupBuilder
 		try {
 			$this->xmlElement = new SmartSimpleXmlElement(
 				$this->xmlFilename,
-				LIBXML_DTDATTR | LIBXML_DTDLOAD | LIBXML_DTDVALID | LIBXML_NOBLANKS | LIBXML_NOCDATA,
+				LIBXML_DTDATTR | LIBXML_DTDLOAD | LIBXML_DTDVALID | LIBXML_NOBLANKS,
 				true
 			);
 		}

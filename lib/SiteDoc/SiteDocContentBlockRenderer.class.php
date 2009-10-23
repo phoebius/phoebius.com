@@ -80,10 +80,7 @@ class SiteDocContentBlockRenderer
 	{
 		switch ($node->nodeType) {
 			case XML_CDATA_SECTION_NODE: {
-				Assert::notImplemented(
-					'cdata is not yet parsed by %s, pass LIBXML_NOCDATA to SXML ctor',
-					__CLASS__
-				);
+				return $node->nodeValue;
 			}
 			case XML_TEXT_NODE: {
 				return htmlspecialchars($node->nodeValue);
