@@ -26,10 +26,12 @@ abstract class SiteDocIndexItem implements ISiteDocIndexItem
 	 */
 	private $parent;
 
+	/**
+	 * @var array of SiteDocIndexItem
+	 */
 	private $children = array();
 
 	/**
-	 *
 	 * @var string
 	 */
 	private $link;
@@ -64,7 +66,7 @@ abstract class SiteDocIndexItem implements ISiteDocIndexItem
 	}
 
 	/**
-	 * @return array of SiteDoc
+	 * @return array of ISiteDocIndexItem
 	 */
 	function getChildren()
 	{
@@ -74,7 +76,7 @@ abstract class SiteDocIndexItem implements ISiteDocIndexItem
 	/**
 	 * @return SiteDocIndexXmlItem
 	 */
-	function addChild(ISiteDocIndexItem $child)
+	function addChild(SiteDocIndexItem $child)
 	{
 		$this->children[spl_object_hash($child)] = $child;
 

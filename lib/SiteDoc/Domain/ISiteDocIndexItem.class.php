@@ -37,12 +37,12 @@ interface ISiteDocIndexItem
 	function getDoc();
 
 	/**
-	 * @return SiteDoc|null
+	 * @return ISiteDocIndexItem|null
 	 */
 	function getParent();
 
 	/**
-	 * @return array of SiteDoc
+	 * @return array of ISiteDocIndexItem
 	 */
 	function getChildren();
 }

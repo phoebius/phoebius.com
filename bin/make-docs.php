@@ -32,6 +32,11 @@ try
 		APP_SLOT . DIRECTORY_SEPARATOR .
 		'config.php';
 
+
+	$siteIndex =
+		XmlSiteDocIndexBuilder::create(PHOEBIUS_SITE_DOCS_SRC_PATH . '/xml/site/index.xml', '')
+			->build();
+
 	$siteDoc =
 		XmlSiteDocBuilder::create(PHOEBIUS_SITE_DOCS_SRC_PATH . '/xml/site/highlights.xml')
 			->build();

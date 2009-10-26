@@ -19,7 +19,7 @@
 /**
  * @ingroup SiteDoc
  */
-class SiteDocIndexXmlItem extends SiteDocIndexItem
+class SiteDocIndexRefItem extends SiteDocIndexItem
 {
 	private $name;
 

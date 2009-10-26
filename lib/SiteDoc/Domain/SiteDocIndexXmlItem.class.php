@@ -17,11 +17,19 @@
  ************************************************************************************************/
 
 /**
- * @ingroup SiteDoc
+ * @ingroup SiteDoc_Domain
  */
 class SiteDocIndexXmlItem extends SiteDocIndexItem
 {
+	/**
+	 * @var string|null
+	 */
 	private $xmlDocPath;
+
+	/**
+	 * @var SiteDoc
+	 */
+	private $siteDoc;
 
 	function __construct(
 			$xmlDocPath, $link, SiteDocIndexItem $parent = null
@@ -38,16 +46,27 @@ class SiteDocIndexXmlItem extends SiteDocIndexItem
 		parent::__construct($link, $parent);
 	}
 
+	/**
+	 * @return string
+	 */
 	function getName()
 	{
-		Assert::notImplemented();
+		return $this->getDoc()->getTitle();
 	}
 
+	/**
+	 * @return SiteDoc
+	 */
 	function getDoc()
 	{
-		Assert::notImplemented();
-	}
+		if (!$this->siteDoc) {
+			$this->siteDoc =
+				XmlSiteDocBuilder::create($this->xmlDocPath)
+					->build();
+		}
 
+		return $this->siteDoc;
+	}
 }
 
 ?>
