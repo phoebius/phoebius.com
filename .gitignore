@@ -4,4 +4,5 @@
 tmp/*
 !tmp/.keepdir
 
-www/support/api/*
+www/*.html
+www/support/*

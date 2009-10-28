@@ -5,7 +5,9 @@
  *
  * **********************************************************************************************
  *
- * Copyright notice
+ * Copyright (c) 2009 phoebius.org
+ *
+ * All rights reserved.
  *
  ************************************************************************************************/
 
@@ -32,7 +34,7 @@ class DoxyHeaderWriter
 	/**
 	 * @return void
 	 */
-	function write(IWriteStream $ws)
+	function write(IOutput $ws)
 	{
 		$ws
 			->write($this->getHeader())

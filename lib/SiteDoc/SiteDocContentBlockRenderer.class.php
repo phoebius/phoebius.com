@@ -7,12 +7,7 @@
  *
  * Copyright (c) 2009 phoebius.org
  *
- * This program is free software; you can redistribute it and/or modify it under the terms
- * of the GNU Lesser General Public License as published by the Free Software Foundation;
- * either version 3 of the License, or (at your option) any later version.
- *
- * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>.
+ * All rights reserved.
  *
  ************************************************************************************************/
 
@@ -80,7 +75,7 @@ class SiteDocContentBlockRenderer
 	{
 		switch ($node->nodeType) {
 			case XML_CDATA_SECTION_NODE: {
-				return $node->nodeValue;
+				//return $node->nodeValue;
 			}
 			case XML_TEXT_NODE: {
 				return htmlspecialchars($node->nodeValue);
@@ -104,12 +99,16 @@ class SiteDocContentBlockRenderer
 	private function renderElementNode(DOMElement $node)
 	{
 		switch ($node->tagName) {
+			case 'asis': {
+				return $node->nodeValue;
+			}
+
 			case 'link': {
 				return $this->renderLink($node);
 			}
 
 			case 'code-block': {
-				return $this->renderCode($node);
+				return $this->renderCodeBlock($node);
 			}
 
 			default: {
@@ -135,11 +134,21 @@ class SiteDocContentBlockRenderer
 	 */
 	private function renderCodeBlock(DOMElement $node)
 	{
+		$yield = StringUtils::EMPTY_STRING;
+
+		$codeBlockTitle = $node->getAttribute('title');
+
+		if ($codeBlockTitle) {
+			$yield .=
+				'<h4 class="code">'
+				. $codeBlockTitle
+				. '</h4>';
+		}
+
 		return
-			'<pre class="source">'
-			. '<h4 class="code">'
+			$yield
+			. '<pre class="source">'
 			. $this->renderInnerNodes($node)
-			. '</h4>'
 			. '</pre>';
 	}
 

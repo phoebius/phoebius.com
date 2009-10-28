@@ -7,12 +7,7 @@
  *
  * Copyright (c) 2009 phoebius.org
  *
- * This program is free software; you can redistribute it and/or modify it under the terms
- * of the GNU Lesser General Public License as published by the Free Software Foundation;
- * either version 3 of the License, or (at your option) any later version.
- *
- * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>.
+ * All rights reserved.
  *
  ************************************************************************************************/
 
@@ -39,6 +34,11 @@ class DoxyGen
 	private $primaryConfig;
 
 	/**
+	 * @var array
+	 */
+	private $otherOpts = array();
+
+	/**
 	 * @return DoxyGen
 	 */
 	static function create($configPath)
@@ -63,6 +63,20 @@ class DoxyGen
 		return $this;
 	}
 
+	function setHtmlHeader($filepath)
+	{
+		$this->otherOpts['HTML_HEADER'] = $filepath;
+
+		return $this;
+	}
+
+	function setHtmlFooter($filepath)
+	{
+		$this->otherOpts['HTML_FOOTER'] = $filepath;
+
+		return $this;
+	}
+
 	/**
 	 * @return void
 	 */
@@ -81,6 +95,10 @@ class DoxyGen
 		$doxyConfig->add('OUTPUT_DIRECTORY', $outputPath);
 		$doxyConfig->add('STRIP_FROM_PATH', $this->inputPaths);
 		$doxyConfig->add('INPUT', $this->inputPaths);
+
+		foreach ($this->otherOpts as $key => $value) {
+			$doxyConfig->add($key, $value);
+		}
 
 		$this->primaryConfig = new TempFile();
 		$doxyConfig->write($this->primaryConfig);

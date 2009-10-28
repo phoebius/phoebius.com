@@ -5,7 +5,9 @@
  *
  * **********************************************************************************************
  *
- * Copyright notice
+ * Copyright (c) 2009 phoebius.org
+ *
+ * All rights reserved.
  *
  ************************************************************************************************/
 
@@ -122,7 +124,7 @@ class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 	private function getHtmlUri($uri)
 	{
 		if ('/' == $uri{strlen($uri) - 1}) {
-			$uri .= 'index.html';
+			//$uri .= 'index.html';
 		}
 
 		$uri = preg_replace('/\.xml$/i', '.html', $uri);

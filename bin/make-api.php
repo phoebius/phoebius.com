@@ -44,11 +44,36 @@ try
 		PHOEBIUS_SITE_DOXYGEN_PARTS_PATH . '/doxygen.conf'
 	);
 
+	$htmlHeader = new TempFile();
+	UIViewPresentation
+		::view(
+			'parts/header',
+			Model::create()
+					->addCollection(array(
+						'title' => 'API Documentation',
+						'activeMenuItem' =>'Support',
+						'breadScrumbs' => array(
+							new ViewLink('Support', '/support/'),
+							new ViewLink('API', '/support/api/'),
+						),
+						'forDoxy' => true
+					))
+		)
+		->render($htmlHeader);
+	$doxyGen->setHtmlHeader($htmlHeader->getPath());
+
+	$htmlFooter = new TempFile();
+	UIViewPresentation
+		::view(
+			'parts/footer'
+		)
+		->render($htmlFooter);
+	$doxyGen->setHtmlFooter($htmlFooter->getPath());
+
 	$doxyGen->addInputPath($header->getPath());
 	$doxyGen->addInputPath(PHOEBIUS_SITE_FRAMEWORK_SRC_PATH . '/lib');
 
 	FSUtils::cleanDirectory(PHOEBIUS_SITE_API_PATH);
-
 	$doxyGen->make(PHOEBIUS_SITE_API_PATH);
 
 	echo 'Done';

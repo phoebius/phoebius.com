@@ -11,38 +11,22 @@
  *
  ************************************************************************************************/
 
-/**
- * @ingroup SiteDoc
- */
-class SiteDocAuthor
-{
-	private $title;
-	private $name;
 
-	function __construct($title, $name)
-	{
-		Assert::isScalar($title);
-		Assert::isScalar($name);
 
-		$this->title = $title;
-		$this->name = $name;
+?><ul class="navigation">
+<?php
+	$menu = array(
+		'Download' => '/download.html',
+		'Support' => '/support/',
+		'Blog' => '/blog/',
+		'About' => '/about.html'
+	);
+
+	foreach ($menu as $item => $url) {
+		?><li><a<?=(
+			$item == $this->getActiveElement()
+				? ' class="selected"'
+				: ''
+		)?> href="<?=$url?>"><?=$item?></a></li><?
 	}
-
-	/**
-	 * @return string
-	 */
-	function getTitle()
-	{
-		return $this->title;
-	}
-
-	/**
-	 * @return string
-	 */
-	function getName()
-	{
-		return $this->name;
-	}
-}
-
-?>
+?></ul>

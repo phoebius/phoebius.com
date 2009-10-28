@@ -7,12 +7,7 @@
  *
  * Copyright (c) 2009 phoebius.org
  *
- * This program is free software; you can redistribute it and/or modify it under the terms
- * of the GNU Lesser General Public License as published by the Free Software Foundation;
- * either version 3 of the License, or (at your option) any later version.
- *
- * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>.
+ * All rights reserved.
  *
  ************************************************************************************************/
 
@@ -21,6 +16,8 @@
  */
 final class SiteDocIndexRootItem extends SiteDocIndexItem
 {
+	private $httpRoot;
+
 	function __construct()
 	{
 		parent::__construct('');
@@ -32,11 +29,54 @@ final class SiteDocIndexRootItem extends SiteDocIndexItem
 	}
 
 	/**
-	 * @return SiteDoc
+	 * @return void
 	 */
-	function getDoc()
+	function build($httpRoot)
 	{
-		return new SiteDoc();
+		Assert::isScalar($httpRoot);
+
+		$this->httpRoot = $httpRoot;
+
+		$this->traverse($this);
+	}
+
+	private function traverse(ISiteDocIndexItem $item)
+	{
+		foreach ($item->getChildren() as $child) {
+			if ($child instanceof SiteDocIndexXmlItem) {
+				$this->buildChild($child);
+			}
+		}
+	}
+
+	private function buildChild(SiteDocIndexXmlItem $child)
+	{
+		$filepath = $this->httpRoot . $child->getLink();
+		if ($filepath{strlen($filepath) - 1} == '/') {
+			$filepath .= 'index.html';
+		}
+
+		if (!is_dir(dirname($filepath))) {
+			mkdir(dirname($filepath), null, true);
+		}
+
+		$htmlRenderer =
+			UIViewPresentation
+				::view(
+					'content',
+					Model::create()
+						->addCollection(array(
+							'siteDoc' => $child->getDoc(),
+							'siteDocIndexItem' => $child,
+							'activeMenuItem' => 'Support',
+							'breadScrumbs' => array(
+								new ViewLink('Support', '/support/'),
+							),
+						))
+				)
+			->render(new FileWriteStream($filepath));
+
+		$this->traverse($child);
 	}
 }
 
