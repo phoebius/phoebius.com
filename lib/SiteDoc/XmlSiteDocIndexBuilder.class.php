@@ -94,9 +94,9 @@ class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 	 */
 	private function import()
 	{
-		if ($this->xmlElement['menu-id']) {
-			$this->getRootIndex()->setMenuId(
-				(string) $this->xmlElement['menu-id']
+		if (isset($this->xmlElement['site-part'])) {
+			$this->getRootIndex()->setSitePart(
+				new SitePart((string)$this->xmlElement['site-part'])
 			);
 		}
 		$this->traverse($this->getRootIndex(), $this->xmlElement);
@@ -150,8 +150,8 @@ class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 						)
 					),
 					$rootIndex,
-					isset($node['menu-id'])
-						? (string) $node['menu-id']
+					isset($node['site-part'])
+						? new SitePart((string) $node['site-part'])
 						: null
 				);
 
@@ -162,8 +162,8 @@ class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 					(string) $node['name'],
 					$this->absolutizeLocation((string) $node['link']),
 					$rootIndex,
-					isset($node['menu-id'])
-						? (string) $node['menu-id']
+					isset($node['site-part'])
+						? new SitePart((string) $node['site-part'])
 						: null
 				);
 

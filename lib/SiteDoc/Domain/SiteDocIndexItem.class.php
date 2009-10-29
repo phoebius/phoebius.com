@@ -22,7 +22,7 @@ abstract class SiteDocIndexItem implements ISiteDocIndexItem
 	private $parent;
 
 	/**
-	 * @var string|null
+	 * @var SitePart|null
 	 */
 	private $menuId;
 
@@ -36,7 +36,7 @@ abstract class SiteDocIndexItem implements ISiteDocIndexItem
 	 */
 	private $link;
 
-	function __construct($link, SiteDocIndexItem $parent = null, $menuId = null)
+	function __construct($link, SiteDocIndexItem $parent = null, SitePart $sitePart = null)
 	{
 		Assert::isScalar($link);
 
@@ -47,25 +47,28 @@ abstract class SiteDocIndexItem implements ISiteDocIndexItem
 		}
 
 		$this->link = $link;
-		$this->setMenuId(
-			!$menuId && $parent
-				? $parent->getMenuId()
-				: $menuId
-		);
+		$this->sitePart =
+			!$sitePart && $parent
+				? $parent->getSitePart()
+				: $sitePart;
 	}
 
-	function setMenuId($menuId = null)
+	/**
+	 * @return SiteDocIndexItem
+	 */
+	function setSitePart(SitePart $sitePart = null)
 	{
-		Assert::isScalarOrNull($menuId);
-
-		$this->menuId = $menuId;
+		$this->sitePart = $sitePart;
 
 		return $this;
 	}
 
-	function getMenuId()
+	/**
+	 * @return SitePart
+	 */
+	function getSitePart()
 	{
-		return $this->menuId;
+		return $this->sitePart;
 	}
 
 	/**
