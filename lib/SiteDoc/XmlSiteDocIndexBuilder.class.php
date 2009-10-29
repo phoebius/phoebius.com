@@ -70,8 +70,7 @@ class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 	}
 
 	/**
-	 * @return DoxyGroup
-	 * @see DoxyGroupBuilder::build()
+	 * @return SiteDocIndexItem
 	 */
 	function build()
 	{
@@ -95,6 +94,11 @@ class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 	 */
 	private function import()
 	{
+		if ($this->xmlElement['menu-id']) {
+			$this->getRootIndex()->setMenuId(
+				(string) $this->xmlElement['menu-id']
+			);
+		}
 		$this->traverse($this->getRootIndex(), $this->xmlElement);
 	}
 
@@ -145,7 +149,10 @@ class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 								: (string) $node['xml']
 						)
 					),
-					$rootIndex
+					$rootIndex,
+					isset($node['menu-id'])
+						? (string) $node['menu-id']
+						: null
 				);
 
 				break;
@@ -154,7 +161,10 @@ class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 				$item = new SiteDocIndexRefItem(
 					(string) $node['name'],
 					$this->absolutizeLocation((string) $node['link']),
-					$rootIndex
+					$rootIndex,
+					isset($node['menu-id'])
+						? (string) $node['menu-id']
+						: null
 				);
 
 				break;

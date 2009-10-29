@@ -22,6 +22,11 @@ abstract class SiteDocIndexItem implements ISiteDocIndexItem
 	private $parent;
 
 	/**
+	 * @var string|null
+	 */
+	private $menuId;
+
+	/**
 	 * @var array of SiteDocIndexItem
 	 */
 	private $children = array();
@@ -31,7 +36,7 @@ abstract class SiteDocIndexItem implements ISiteDocIndexItem
 	 */
 	private $link;
 
-	function __construct($link, SiteDocIndexItem $parent = null)
+	function __construct($link, SiteDocIndexItem $parent = null, $menuId = null)
 	{
 		Assert::isScalar($link);
 
@@ -42,6 +47,25 @@ abstract class SiteDocIndexItem implements ISiteDocIndexItem
 		}
 
 		$this->link = $link;
+		$this->setMenuId(
+			!$menuId && $parent
+				? $parent->getMenuId()
+				: $menuId
+		);
+	}
+
+	function setMenuId($menuId = null)
+	{
+		Assert::isScalarOrNull($menuId);
+
+		$this->menuId = $menuId;
+
+		return $this;
+	}
+
+	function getMenuId()
+	{
+		return $this->menuId;
 	}
 
 	/**

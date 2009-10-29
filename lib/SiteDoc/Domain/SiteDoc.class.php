@@ -22,6 +22,11 @@ class SiteDoc
 	private $title;
 
 	/**
+	 * @var boolean
+	 */
+	private $generateContents = false;
+
+	/**
 	 * @var array of SiteDocChapter
 	 */
 	private $chapters = array();

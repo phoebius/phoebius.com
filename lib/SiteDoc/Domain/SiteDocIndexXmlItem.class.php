@@ -27,7 +27,7 @@ class SiteDocIndexXmlItem extends SiteDocIndexItem
 	private $siteDoc;
 
 	function __construct(
-			$xmlDocPath, $link, SiteDocIndexItem $parent = null
+			$xmlDocPath, $link, SiteDocIndexItem $parent = null, $menuId = null
 		)
 	{
 		Assert::isScalar($xmlDocPath);
@@ -38,7 +38,7 @@ class SiteDocIndexXmlItem extends SiteDocIndexItem
 
 		$this->xmlDocPath = $xmlDocPath;
 
-		parent::__construct($link, $parent);
+		parent::__construct($link, $parent, $menuId);
 	}
 
 	/**

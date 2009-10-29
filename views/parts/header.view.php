@@ -33,7 +33,7 @@ extract(
   	<link href="/css/doxy.css" rel="stylesheet" type="text/css" />
   <?php }?>
 </head>
-<body>
+<body id="layout">
 <div class="header">
   <div class="container">
     <a href="/"><img class="logo" alt="Phoebius framework" src="/images/logo.jpg" /></a>

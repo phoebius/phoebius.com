@@ -68,7 +68,7 @@ final class SiteDocIndexRootItem extends SiteDocIndexItem
 						->addCollection(array(
 							'siteDoc' => $child->getDoc(),
 							'siteDocIndexItem' => $child,
-							'activeMenuItem' => 'Support',
+							'activeMenuItem' => $child->getMenuId(),
 							'breadScrumbs' => array(
 								new ViewLink('Support', '/support/'),
 							),
