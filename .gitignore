@@ -5,4 +5,5 @@ tmp/*
 !tmp/.keepdir
 
 www/*.html
-www/support/*
+www/support/
+www/src/
