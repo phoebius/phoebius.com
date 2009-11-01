@@ -53,9 +53,6 @@ abstract class SiteDocIndexItem implements ISiteDocIndexItem
 				: $sitePart;
 	}
 
-	/**
-	 * @return SiteDocIndexItem
-	 */
 	function setSitePart(SitePart $sitePart = null)
 	{
 		$this->sitePart = $sitePart;

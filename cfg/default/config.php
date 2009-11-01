@@ -16,12 +16,6 @@
  *
  ************************************************************************************************/
 
-//
-// host config
-//
-
-define ('APP_SLOT_CONFIGURATION', SLOT_PRESET_DEVELOPMENT);
-
-Autoloader::getInstance()->clearCache();
+require dirname(__FILE__) . '/../dev/config.php';
 
 ?>

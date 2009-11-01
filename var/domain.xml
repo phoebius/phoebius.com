@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * ***********************************************************************************************
+ *
+ * Phoebius Framework
+ *
+ * **********************************************************************************************
+ *
+ * Copyright (c) 2009 phoebius.org
+ *
+ * All rights reserved.
+ *
+ *************************************************************************************************
+-->
+
+<!DOCTYPE domain SYSTEM "../phoebius-src/share/Orm/Domain/Meta/Xml/abstract.dtd">
+
+<domain db-schema="default">
+	<entities>
+		<entity name="BlogEntry" has-dao="true">
+			<properties>
+				<identifier/>
+				<property name="title" type="String"/>
+				<property name="text" type="String"/>
+				<property name="pubTime" type="Timestamp"/>
+				<property name="pubDate" type="Date"/>
+				<property name="restId" type="String"/>
+				<container name="entryTags" type="BlogEntryTag" refs="BlogEntryBlogTag"/>
+			</properties>
+		</entity>
+		<entity name="BlogEntryTag" has-dao="true">
+			<properties>
+				<identifier/>
+				<property name="name" type="String"/>
+				<property name="restId" type="String" unique="true"/>
+				<container name="blogEntries" type="BlogEntry" refs="BlogEntryBlogTag"/>
+			</properties>
+		</entity>
+		<entity name="ConfigurationEntry" has-dao="true">
+			<properties>
+				<identifier type="ConfigurationKey"/>
+				<property name="value" type="String"/>
+			</properties>
+		</entity>
+	</entities>
+</domain>

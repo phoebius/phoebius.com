@@ -163,7 +163,7 @@ class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 					$this->absolutizeLocation((string) $node['link']),
 					$rootIndex,
 					isset($node['site-part'])
-						? new SitePart((string) $node['site-part'])
+						? new SitePart($node['site-part'])
 						: null
 				);
 

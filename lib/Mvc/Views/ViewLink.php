@@ -16,6 +16,41 @@
  *
  ************************************************************************************************/
 
+/**
+ * @ingroup Phoebius_Mvc_Views
+ */
+class ViewLink
+{
+	private $name;
+	private $address;
 
+	function __construct($name, $address)
+	{
+		Assert::isScalar($name);
+		Assert::isScalar($address);
+
+		$this->name = $name;
+		$this->address = $address;
+	}
+
+	function getName()
+	{
+		return $this->name;
+	}
+
+	function getAddress()
+	{
+		return $this->name;
+	}
+
+	function toHtml()
+	{
+		return
+			'<a href="'
+			. $this->name
+			. '">'
+			. $this->name;
+	}
+}
 
 ?>

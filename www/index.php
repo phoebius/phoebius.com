@@ -35,6 +35,27 @@ try
 	//
 	// your stuff goes here
 	//
+		$releases = new XmlReleaseSetBuilder(
+			PHOEBIUS_SITE_DOCS_SRC_PATH . '/xml/other/releases.xml'
+		);
+		$releases->build();
+
+
+		$mm = new MemoryStream();
+
+		UIViewPresentation
+			::view(
+				'index',
+				Model
+					::create()
+					->addCollection(
+						array(
+							'release' => $releases->getLatestRelease()
+						)
+					)
+			)
+			->render($mm);
+			echo $mm->getBuffer();
 }
 catch (ExecutionContextException $e)
 {

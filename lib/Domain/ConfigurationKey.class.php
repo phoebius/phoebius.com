@@ -11,21 +11,28 @@
  *
  ************************************************************************************************/
 
-//
-// host config
-//
+/**
+ * @ingroup Phoebius_Domain
+ */
+final class ConfigurationKey extends Enumeration implements IIdentifierMappable
+{
+	const ADMIN_EMAIL = 'ae';
+	const ADMIN_PASSWORD = 'ap';
 
-define ('APP_SLOT_CONFIGURATION', SLOT_PRESET_DEVELOPMENT);
+	/**
+	 * @param scalar $value
+	 * @return ConfigurationKey
+	 * @throws TypeCastException
+	 */
+	static function cast($value)
+	{
+		return new self ($value);
+	}
 
-Autoloader::getInstance()->clearCache();
-
-DBPool::add(
-	'default',
-	PgSqlDB::create()
-		->setDBName('phoebius-site')
-		->setEncoding('utf8')
-		->setUser('postgres')
-		->setPassword('postgres')
-);
+	function toScalarId()
+	{
+		return $this->getValue();
+	}
+}
 
 ?>

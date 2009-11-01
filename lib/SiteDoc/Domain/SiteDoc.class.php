@@ -24,7 +24,7 @@ class SiteDoc
 	/**
 	 * @var boolean
 	 */
-	private $generateContents = false;
+	private $generateContents;
 
 	/**
 	 * @var array of SiteDocChapter

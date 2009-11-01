@@ -105,7 +105,8 @@ class XmlSiteDocBuilder extends SiteDocBuilder
 		$chapter = new SiteDocChapter(
 			isset($chapterContainer['title'])
 				? (string) $chapterContainer['title']
-				: null
+				: null,
+			'true' == $chapterContainer['block']
 		);
 
 		foreach ($chapterContainer as $elem) {

@@ -22,15 +22,22 @@ class SiteDocChapter
 	private $title;
 
 	/**
+	 * @var boolean
+	 */
+	private $block;
+
+	/**
 	 * @var array of SiteDocParagraph|SiteDocChapter
 	 */
 	private $items = array();
 
-	function __construct($title = null)
+	function __construct($title = null, $block = false)
 	{
 		Assert::isScalarOrNull($title);
+		Assert::isBoolean($block);
 
 		$this->title = $title;
+		$this->block = $block;
 	}
 
 	/**
@@ -72,6 +79,10 @@ class SiteDocChapter
 			$yield .= $renderer->getTitle($this->title);
 		}
 
+		if ($this->block) {
+			$yield .= '<div class="i">';
+		}
+
 		foreach ($this->items as $item) {
 			$yield .=
 				$item->toHtml(
@@ -79,6 +90,10 @@ class SiteDocChapter
 						? $renderer->spawnNested()
 						: $renderer
 					);
+		}
+
+		if ($this->block) {
+			$yield .= '</div>';
 		}
 
 		return $yield;

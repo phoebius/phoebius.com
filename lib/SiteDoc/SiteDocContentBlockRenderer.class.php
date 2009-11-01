@@ -25,6 +25,14 @@ class SiteDocContentBlockRenderer
 	/**
 	 * @return SiteDocContentBlockRenderer
 	 */
+	static function create()
+	{
+		return new self;
+	}
+
+	/**
+	 * @return SiteDocContentBlockRenderer
+	 */
 	function spawnNested()
 	{
 		$clone = clone $this;

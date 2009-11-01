@@ -42,7 +42,7 @@ class DoxyConfig
 	/**
 	 * @return void
 	 */
-	function write(IOutput $ws)
+	function write(IWriteStream $ws)
 	{
 		$options = array();
 		foreach ($this->options as $option => $value) {
