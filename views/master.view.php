@@ -13,7 +13,7 @@
 
 extract(
 	$this->getVariables(array(
-		'title', 'activeMenuItem', 'breadScrumbs', 'forDoxy'
+		'title', 'activeMenuItem', 'forDoxy'
 	))
 );
 
@@ -67,19 +67,20 @@ extract(
     </div>
   </div>
 </div>
-<div class="pathway">
+
+<?=$this->getUIControl()->getDefaultContent()?>
+
+<div class="footer">
   <div class="container">
-  <?php
-
-  	array_unshift($breadScrumbs, new ViewLink('Home', '/'));
-
-  	$pathWay = array();
-  	foreach ($breadScrumbs as $item) {
-  		$pathWay[] = '<a href="' . $item->getAddress() . '">' . $item->getName() . '</a>';
-  	}
-
-  	echo join('&nbsp;<span class="arr">&rarr;</span>&nbsp;', $pathWay);
-
-  ?>
+    <p>
+     All questions and proposals<br />
+     are welcomed at <a href="mailto:feedback@phoebius.org">feedback@phoebius.org</a>
+    </p>
+    <div class="copy">
+      <p>&copy; 2009 Phoebius.org</p>
+    </div>
   </div>
 </div>
+
+</body>
+</html>

@@ -13,19 +13,20 @@
 
 extract(
 	$this->getVariables(array(
-		'siteDoc', 'siteDocIndexItem', 'breadScrumbs', 'activeMenuItem'
+		'siteDoc', 'siteDocIndexItem', 'breadScrumbs', 'activeMenuItem', 'forDoxy'
 	))
 );
 
 ?>
 
-<?php $this->renderPartial(
-	'parts/header',
+<?php $this->setMaster(
+	'content.master',
 	Model::create()
 		->addCollection(array(
 			'title' => $siteDoc->getTitle(),
+			'activeMenuItem' => $activeMenuItem,
+			'forDoxy' => $forDoxy,
 			'breadScrumbs' => $breadScrumbs,
-			'activeMenuItem' => $activeMenuItem
 		))
 ); ?>
 
@@ -84,6 +85,4 @@ extract(
     </div>
   </div>
   <!--Content-->
-
-<?php $this->renderPartial('parts/footer'); ?>
 
