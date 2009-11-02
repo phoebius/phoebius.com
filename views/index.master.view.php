@@ -13,7 +13,7 @@
 
 extract(
 	$this->getVariables(array(
-		'release'
+		'release', 'isAdmin'
 	))
 );
 
@@ -24,6 +24,7 @@ extract(
 	Model::create()
 		->addCollection(array(
 			'title' => 'Phoebius framework',
+			'isAdmin' => $isAdmin
 		))
 ); ?>
 
@@ -52,7 +53,7 @@ extract(
           <h4>The latest release:</h4>
           <p>
           	Phoebius v<?=$release->getVersion()?><br />
-          	<i class="note"><?=$release->getDate()->toFormattedString('M. d, Y')?></i>
+          	<i class="note"><?=$release->getDate()->toFormattedString('F d, Y')?></i>
           </p>
           <table>
              <tr>

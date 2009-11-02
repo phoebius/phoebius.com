@@ -11,7 +11,11 @@
  *
  ************************************************************************************************/
 
-
+extract(
+	$this->getVariables(array(
+		'isAdmin', 'activeMenuItem'
+	))
+);
 
 ?><ul class="navigation">
 <?php
@@ -24,9 +28,17 @@
 
 	foreach ($menu as $item => $url) {
 		?><li><a<?=(
-			$item == $this->getActiveElement()
+			$item == $activeMenuItem
 				? ' class="selected"'
 				: ''
 		)?> href="<?=$url?>"><?=$item?></a></li><?
+	}
+
+	if ($isAdmin) {
+		?><li><a<?=(
+			$item == $activeMenuItem
+				? ' class="selected"'
+				: ''
+		)?> href="/admin/entry/">New blog entry</a></li><?
 	}
 ?></ul>

@@ -17,8 +17,10 @@
  * /blog/?skip=1
  * /blog/01.11.2009/
  * /blog/01.11.2009/new-orm
- *
- *
+ * /feedback/
+ * /search/
+ * /admin/
+ * /admin/entry/?id
  *
  * @ingroup Phoebius_Mvc
  */
@@ -45,6 +47,33 @@ class PhoebiusRoutingPolicy extends ChainedRoutingPolicy
 					))
 			))
 		);
+
+		$this->addRule(
+			'blogEntry',
+			RewriteRuleChain::create(array(
+				WebUrlRewriteRule::create('/blog/:date/:entryRestId*'),
+
+				ParametricRewriteRule::create()
+					->addParameters(array(
+						'controller' => 'Blog',
+						'action' => 'showEntry',
+					))
+			))
+		);
+
+		$this->addRule(
+			'blogEntriesByDate',
+			RewriteRuleChain::create(array(
+				WebUrlRewriteRule::create('/blog/:date/'),
+
+				ParametricRewriteRule::create()
+					->addParameters(array(
+						'controller' => 'Blog',
+						'action' => 'showBlogEntriesByDate',
+					))
+			))
+		);
+
 		$this->addRule(
 			'blogIndex',
 			RewriteRuleChain::create(array(
@@ -53,38 +82,10 @@ class PhoebiusRoutingPolicy extends ChainedRoutingPolicy
 				ParametricRewriteRule::create()
 					->addParameters(array(
 						'controller' => 'Blog',
-						'action' => 'showBlogEntries',
+						'action' => 'showBlogIndex',
 					))
 			))
 		);
-
-		$this->addRule(
-			'blogNav',
-			RewriteRuleChain::create(array(
-				WebUrlRewriteRule::create('/blog/?:skip'),
-
-				ParametricRewriteRule::create()
-					->addParameters(array(
-						'controller' => 'Blog',
-						'action' => 'showBlogEntries',
-					))
-			))
-		);
-
-
-		$this->addRule(
-			'blogEntry',
-			RewriteRuleChain::create(array(
-				WebUrlRewriteRule::create('/blog/'),
-
-				ParametricRewriteRule::create()
-					->addParameters(array(
-						'controller' => 'StrongByCatalog',
-						'action' => 'showCommodity',
-					))
-			))
-		);
-
 
 		$this->addRule(
 			'feedback',
@@ -93,21 +94,73 @@ class PhoebiusRoutingPolicy extends ChainedRoutingPolicy
 
 				ParametricRewriteRule::create()
 					->addParameters(array(
-						'controller' => 'Feedback',
+						'controller' => 'CustomPage',
 						'action' => 'feedback',
 					))
 			))
 		);
 
 		$this->addRule(
-			'adminIndex',
+			'search',
+			RewriteRuleChain::create(array(
+				WebUrlRewriteRule::create('/search/'),
+
+				ParametricRewriteRule::create()
+					->addParameters(array(
+						'controller' => 'CustomPage',
+						'action' => 'feedback',
+					))
+			))
+		);
+
+		$this->addRule(
+			'adminEditEntry',
+			RewriteRuleChain::create(array(
+				WebUrlRewriteRule::create('/admin/entry/?:id'),
+
+				ParametricRewriteRule::create()
+					->addParameters(array(
+						'controller' => 'Admin',
+						'action' => 'editEntry',
+					))
+			))
+		);
+
+		$this->addRule(
+			'adminDeleteEntry',
+			RewriteRuleChain::create(array(
+				WebUrlRewriteRule::create('/admin/entry/delete/?:id'),
+
+				ParametricRewriteRule::create()
+					->addParameters(array(
+						'controller' => 'Admin',
+						'action' => 'deleteEntry',
+					))
+			))
+		);
+
+		$this->addRule(
+			'adminNewEntry',
+			RewriteRuleChain::create(array(
+				WebUrlRewriteRule::create('/admin/entry/'),
+
+				ParametricRewriteRule::create()
+					->addParameters(array(
+						'controller' => 'Admin',
+						'action' => 'newEntry',
+					))
+			))
+		);
+
+		$this->addRule(
+			'adminLogin',
 			RewriteRuleChain::create(array(
 				WebUrlRewriteRule::create('/admin/'),
 
 				ParametricRewriteRule::create()
 					->addParameters(array(
 						'controller' => 'Admin',
-						'action' => 'index',
+						'action' => 'login',
 					))
 			))
 		);
@@ -116,8 +169,8 @@ class PhoebiusRoutingPolicy extends ChainedRoutingPolicy
 			'404',
 			ParametricRewriteRule::create()
 				->addParameters(array(
-					'controller' => 'Page',
-					'action' => 'show404',
+					'controller' => 'CustomPage',
+					'action' => '404',
 				))
 		);
 	}

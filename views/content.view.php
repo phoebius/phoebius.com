@@ -38,7 +38,7 @@ extract(
          <!--Left panel-->
          <div class="left">
             <div class="container">
-            <?php if ($siteDocIndexItem->getParent()->hasChildren()) { ?>
+            <?php if ($siteDocIndexItem && $siteDocIndexItem->getParent()->hasChildren()) { ?>
               <ul class="menu">
               	<?php foreach ($siteDocIndexItem->getParent()->getChildren() as $indexItem) { ?>
                 <li><a<?=(

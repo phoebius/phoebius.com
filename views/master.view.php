@@ -13,7 +13,7 @@
 
 extract(
 	$this->getVariables(array(
-		'title', 'activeMenuItem', 'forDoxy'
+		'title', 'activeMenuItem', 'forDoxy', 'isAdmin'
 	))
 );
 
@@ -37,23 +37,7 @@ extract(
 <div class="header">
   <div class="container">
     <a href="/"><img class="logo" alt="Phoebius framework" src="/images/logo.jpg" /></a>
-    <ul class="navigation">
-<?php
-	$menu = array(
-		new ViewLink('Download', '/download.html'),
-		new ViewLink('Support', '/support/'),
-		new ViewLink('Blog', '/blog/'),
-		new ViewLink('About', '/about.html'),
-	);
-
-	foreach ($menu as $item) {
-		?><li><a<?=(
-			$item->getName() == $activeMenuItem
-				? ' class="selected"'
-				: ''
-		)?> href="<?=$item->getAddress()?>"><?=$item->getName()?></a></li><?
-	}
-?></ul>
+    <?php $this->renderPartial('parts/top-menu');?>
     <ul class="shortcuts">
       <li><a title="Sitemap" href="/sitemap/">
       <img class="map"  alt="Sitemap" width="16" height="16" src="/images/blank.gif"/></a></li>

@@ -14,7 +14,10 @@
  */
 class BlogEntry extends AutoBlogEntry
 {
-
+	function toUrl()
+	{
+		return $this->getPubDate()->toFormattedString('d.m.Y') . '/' . $this->getRestId();
+	}
 }
 
 ?>

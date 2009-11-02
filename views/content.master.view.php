@@ -13,7 +13,7 @@
 
 extract(
 	$this->getVariables(array(
-		'title', 'activeMenuItem', 'forDoxy', 'breadScrumbs'
+		'title', 'activeMenuItem', 'forDoxy', 'breadScrumbs', 'isAdmin'
 	))
 );
 
@@ -25,7 +25,8 @@ extract(
 		->addCollection(array(
 			'title' => $title,
 			'activeMenuItem' => $activeMenuItem,
-			'forDoxy' => $forDoxy
+			'forDoxy' => $forDoxy,
+			'isAdmin' => $isAdmin
 		))
 ); ?>
 
@@ -33,6 +34,9 @@ extract(
   <div class="container">
   <?php
 
+  	if (!is_array($breadScrumbs)) {
+  		$breadScrumbs = array();
+  	}
   	array_unshift($breadScrumbs, new ViewLink('Home', '/'));
 
   	$pathWay = array();

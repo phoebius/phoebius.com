@@ -417,5 +417,5 @@ input, select, textarea {
 }
 
 .paging .active { color:#55a041; } 
-
+.paging .passive { color:#d0d0d0; } 
 

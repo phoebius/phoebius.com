@@ -35,39 +35,56 @@ try
 	//
 	// your stuff goes here
 	//
-		$releases = new XmlReleaseSetBuilder(
-			PHOEBIUS_SITE_DOCS_SRC_PATH . '/xml/other/releases.xml'
-		);
-		$releases->build();
 
+	$request = WebRequest::create(new WebRequestDictionary($_SERVER))
+		->setGetVars($_GET)
+		->setPostVars($_POST)
+		->setFilesVars($_FILES)
+		->setCookieVars($_COOKIE);
 
-		$mm = new MemoryStream();
+	$webContext = new WebContext(
+		$request,
+		new WebResponse(true),
+		new WebServerState(new WebServerStateDictionary($_SERVER))
+	);
 
-		UIViewPresentation
-			::view(
-				'index',
-				Model
-					::create()
-					->addCollection(
-						array(
-							'release' => $releases->getLatestRelease()
-						)
-					)
+	$routingPolicy = new PhoebiusRoutingPolicy();
+	$route = new Route();
+
+	$chainedRouteContext = $routingPolicy->getMatchedRuleContext($webContext->getRequest());
+
+	$chainedRouteContext->handle(
+		$chainedRouteContext->getRule()->rewrite($webContext->getRequest(), $route),
+		$webContext
+	);
+}
+catch (Exception $e)
+{
+	if (APP_SLOT_CONFIGURATION & SLOT_CONFIGURATION_FLAG_DEVELOPMENT) {
+		//echo '<pre>', $e->getTraceAsString();
+		//throw $e;
+	}
+	else {
+		mail(
+			"phoebus@phoebius.org",
+			"[Phoebius crash] phoebius.org crash #" . substr(sha1($e->getMessage()), 0, 6),
+			join(
+				"\n\n",
+				array(
+					$_SERVER['REQUEST_URI'],
+					'Request method: ' . $_SERVER['REQUEST_METHOD'],
+					get_class($e). ' msg: ' . $e->getMessage(),
+					print_r((array)$e, true),
+					$e->getTraceAsString()
+				)
 			)
-			->render($mm);
-			echo $mm->getBuffer();
-}
-catch (ExecutionContextException $e)
-{
-	echo '<pre>', $e->getTraceAsString();
-	throw $e;
-}
-catch (CompilationContextException $e)
-{
-	// this could happen at development and test hostConfigurations only
-	// and never in production system
-	echo '<pre>', $e->getTraceAsString();
-	throw $e;
+		);
+	}
+
+	$chainedRouteContext->handle(
+		$routingPolicy->getRule('404')->rewrite($webContext->getRequest(), new Route()),
+		$webContext
+	);
 }
 
 ?>
