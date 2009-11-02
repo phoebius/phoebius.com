@@ -66,7 +66,9 @@ catch (Exception $e)
 	}
 	else {
 		mail(
-			"phoebus@phoebius.org",
+			ConfigurationEntry::getEntry(
+				new ConfigurationKey(ConfigurationKey::ADMIN_EMAIL)
+			)->getValue(),
 			"[Phoebius crash] phoebius.org crash #" . substr(sha1($e->getMessage()), 0, 6),
 			join(
 				"\n\n",

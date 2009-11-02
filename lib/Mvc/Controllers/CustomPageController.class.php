@@ -32,6 +32,32 @@ class CustomPageController extends BasePhoebiusController
 
 		return 'content';
 	}
+
+	function action_feedback($do_send = null, $submitted = null)
+	{
+		if ($do_send) {
+			mail(
+				ConfigurationEntry::getEntry(
+					new ConfigurationKey(ConfigurationKey::ADMIN_EMAIL)
+				)->getValue(),
+				"phoebius.org feedback from {$_REQUEST['name']}",
+				$_REQUEST['text'],
+				join("\r\n", array(
+					'From: "Phoebius.org feedback" <noreply@phoebius.org>',
+					'Reply-To: "' .$_REQUEST['name']. '" <' . $_REQUEST['email'] . '>'
+				))
+			);
+
+			return new RedirectResult(new HttpUrl('/feedback/?submitted=1'));
+		}
+
+		$this->getModel()->addCollection(array(
+				'submitted' => $submitted,
+			)
+		);
+
+		return 'feedback';
+	}
 }
 
 ?>
