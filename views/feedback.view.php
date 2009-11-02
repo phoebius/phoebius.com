@@ -72,7 +72,7 @@ $this->setMaster(
 							</tr>
 							<tr>
 								<td colspan="2" id="qwertyuiopasdfghjklzxcvbnm">
-									<textarea name="entryData[message]" style="width:100%;height:250px"></textarea>
+									<textarea name="message" style="width:100%;height:250px"></textarea>
 								</td>
 							</tr>
 						</table>
