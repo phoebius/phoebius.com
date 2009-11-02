@@ -39,7 +39,7 @@ extract(
     <a href="/"><img class="logo" alt="Phoebius framework" src="/images/logo.jpg" /></a>
     <?php $this->renderPartial('parts/top-menu');?>
     <ul class="shortcuts">
-      <li><a title="Sitemap" href="/sitemap/">
+      <li><a title="Sitemap" href="/sitemap.html">
       <img class="map"  alt="Sitemap" width="16" height="16" src="/images/blank.gif"/></a></li>
       <li><a title="E-mail" href="/feedback/">
       <img class="mail" alt="E-mail" width="16" height="16" src="/images/blank.gif"/></a></li>
