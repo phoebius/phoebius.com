@@ -34,9 +34,9 @@ class DoxyHeaderWriter
 	/**
 	 * @return void
 	 */
-	function write(IWriteStream $ws)
+	function write(IOutput $output)
 	{
-		$ws
+		$output
 			->write($this->getHeader())
 			->write($this->getBody())
 			->write($this->getFooter());

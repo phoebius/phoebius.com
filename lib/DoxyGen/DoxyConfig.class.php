@@ -42,7 +42,7 @@ class DoxyConfig
 	/**
 	 * @return void
 	 */
-	function write(IWriteStream $ws)
+	function write(IOutput $output)
 	{
 		$options = array();
 		foreach ($this->options as $option => $value) {
@@ -55,7 +55,7 @@ class DoxyConfig
 			}
 		}
 
-		$ws->write(join(StringUtils::DELIM_UNIX, $options));
+		$output->write(join(StringUtils::DELIM_UNIX, $options));
 	}
 
 	/**
