@@ -34,7 +34,7 @@ body {
 
 /* - Header*/
 .header {
-  background: #030303 url(../images/wall.jpg) center bottom no-repeat;
+  background: #030303; /*url(../images/wall.jpg) center bottom no-repeat;*/
   height:100px;
 }
 

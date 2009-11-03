@@ -26,7 +26,7 @@ extract(
 			'title' => $siteDoc->getTitle(),
 			'activeMenuItem' => $activeMenuItem,
 			'forDoxy' => $forDoxy,
-			'breadScrumbs' => $breadScrumbs,
+			'breadScrumbs' => $breadScrumbs
 		))
 ); ?>
 

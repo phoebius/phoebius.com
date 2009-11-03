@@ -33,6 +33,15 @@ class CustomPageController extends BasePhoebiusController
 		return 'content';
 	}
 
+	function action_search(String $query = null)
+	{
+		$this->getModel()->addCollection(array(
+			'query' => $query ? $query->getValue() : null
+		));
+
+		return 'search';
+	}
+
 	function action_feedback(
 			$do_send = null,
 			$name = null,

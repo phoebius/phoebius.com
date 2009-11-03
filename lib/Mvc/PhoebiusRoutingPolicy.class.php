@@ -108,7 +108,7 @@ class PhoebiusRoutingPolicy extends ChainedRoutingPolicy
 				ParametricRewriteRule::create()
 					->addParameters(array(
 						'controller' => 'CustomPage',
-						'action' => 'feedback',
+						'action' => 'search',
 					))
 			))
 		);

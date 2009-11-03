@@ -13,7 +13,7 @@
 
 extract(
 	$this->getVariables(array(
-		'title', 'activeMenuItem', 'forDoxy', 'breadScrumbs', 'isAdmin'
+		'title', 'activeMenuItem', 'forDoxy', 'breadScrumbs', 'isAdmin', 'gSearch'
 	))
 );
 
@@ -26,7 +26,8 @@ extract(
 			'title' => $title,
 			'activeMenuItem' => $activeMenuItem,
 			'forDoxy' => $forDoxy,
-			'isAdmin' => $isAdmin
+			'isAdmin' => $isAdmin,
+			'gSearch' => $gSearch
 		))
 ); ?>
 
