@@ -47,7 +47,7 @@ try
 	$htmlHeader = new TempFile();
 	UIViewPresentation
 		::view(
-			'parts/header',
+			'doxy/header',
 			Model::create()
 					->addCollection(array(
 						'title' => 'API Documentation',
