@@ -12,7 +12,7 @@
  ************************************************************************************************/
 
 /**
- * @ingroup SiteDoc_Domain
+ * @ingroup Phoebius_SiteDoc_Domain
  */
 class SiteDocParagraph implements ISiteDocRenderable
 {

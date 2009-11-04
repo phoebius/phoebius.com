@@ -12,7 +12,7 @@
  ************************************************************************************************/
 
 /**
- * @ingorup SiteDoc
+ * @ingorup Phoebius_SiteDoc
  */
 abstract class SiteDocBuilder
 {

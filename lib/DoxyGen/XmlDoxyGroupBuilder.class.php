@@ -12,7 +12,7 @@
  ************************************************************************************************/
 
 /**
- * @ingroup DoxyGen
+ * @ingroup Phoebius_DoxyGen
  */
 class XmlDoxyGroupBuilder extends DoxyGroupBuilder
 {

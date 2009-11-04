@@ -13,7 +13,7 @@
 
 /**
  *
- * @ingroup DoxyGen
+ * @ingroup Phoebius_DoxyGen
  */
 class DoxyConfig
 {

@@ -13,7 +13,7 @@
 
 /**
  *
- * @ingroup SiteDoc
+ * @ingroup Phoebius_SiteDoc_Domain
  */
 class SiteDocVersion
 {

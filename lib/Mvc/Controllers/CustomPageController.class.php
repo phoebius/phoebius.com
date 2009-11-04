@@ -16,6 +16,10 @@
  *
  ************************************************************************************************/
 
+/**
+ *
+ * @ingroup Phoebius_Mvc_Controllers
+ */
 class CustomPageController extends BasePhoebiusController
 {
 	function action_404()

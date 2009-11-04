@@ -12,7 +12,7 @@
  ************************************************************************************************/
 
 /**
- * @ingroup SiteDoc
+ * @ingroup Phoebius_SiteDoc
  */
 class XmlSiteDocBuilder extends SiteDocBuilder
 {

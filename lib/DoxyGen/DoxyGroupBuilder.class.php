@@ -12,7 +12,7 @@
  ************************************************************************************************/
 
 /**
- * @ingorup DoxyGen
+ * @ingorup Phoebius_DoxyGen
  */
 abstract class DoxyGroupBuilder
 {

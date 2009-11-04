@@ -17,7 +17,7 @@
  *    ability to set absolute or relative path to an xml document
  *  - uriPrefix
  *    prefix appended to relative locations of xml <doc> container
- * @ingroup SiteDoc
+ * @ingroup Phoebius_SiteDoc
  */
 class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 {

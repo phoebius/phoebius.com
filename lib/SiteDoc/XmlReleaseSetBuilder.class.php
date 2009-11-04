@@ -12,7 +12,7 @@
  ************************************************************************************************/
 
 /**
- * @ingroup SiteDoc
+ * @ingroup Phoebius_SiteDoc
  */
 class XmlReleaseSetBuilder extends ReleaseSetBuilder
 {

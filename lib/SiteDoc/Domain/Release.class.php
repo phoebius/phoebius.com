@@ -12,7 +12,7 @@
  ************************************************************************************************/
 
 /**
- * @ingroup Phoebius
+ * @ingroup Phoebius_SiteDoc_Domain
  */
 class Release
 {

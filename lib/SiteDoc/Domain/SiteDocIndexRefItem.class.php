@@ -12,7 +12,7 @@
  ************************************************************************************************/
 
 /**
- * @ingroup SiteDoc
+ * @ingroup Phoebius_SiteDoc_Domain
  */
 class SiteDocIndexRefItem extends SiteDocIndexItem
 {
