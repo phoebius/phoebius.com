@@ -83,7 +83,7 @@ class SiteDocContentBlockRenderer
 	{
 		switch ($node->nodeType) {
 			case XML_CDATA_SECTION_NODE: {
-				//return $node->nodeValue;
+				return $node->nodeValue;
 			}
 			case XML_TEXT_NODE: {
 				return htmlspecialchars($node->nodeValue);
@@ -107,10 +107,6 @@ class SiteDocContentBlockRenderer
 	private function renderElementNode(DOMElement $node)
 	{
 		switch ($node->tagName) {
-			case 'asis': {
-				return $node->nodeValue;
-			}
-
 			case 'link': {
 				return $this->renderLink($node);
 			}
@@ -156,7 +152,7 @@ class SiteDocContentBlockRenderer
 		return
 			$yield
 			. '<pre class="source">'
-			. $this->renderInnerNodes($node)
+			. htmlspecialchars($this->renderInnerNodes($node))
 			. '</pre>';
 	}
 
