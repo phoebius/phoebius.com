@@ -27,7 +27,7 @@ class CustomPageController extends BasePhoebiusController
 		Header($this->getContext()->getAppContext()->getRequest()->getProtocol() . ' Not Found');
 
 		$builder = XmlSiteDocBuilder::create(PHOEBIUS_SITE_DOCS_SRC_PATH . '/xml/site/404.xml');
-		$this->getModel()->addCollection(array(
+		$this->getModel()->fill(array(
 			'siteDoc' => $builder->build(),
 			'breadScrumbs' => array(
 				new ViewLink('404', '/404/'),

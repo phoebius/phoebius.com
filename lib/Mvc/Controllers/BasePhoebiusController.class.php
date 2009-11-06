@@ -74,22 +74,14 @@ abstract class BasePhoebiusController extends ActionBasedController
 	{
 		$this->isAdminAuthorized = true;
 
-		$this->getModel()->addCollection(
-			array(
-				'isAdmin' => $this->isAdminAuthorized,
-			)
-		);
+		$this->getModel()->set('isAdmin', $this->isAdminAuthorized);
 	}
 
 	protected function setAdminNotAuthorized()
 	{
 		$this->isAdminAuthorized = false;
 
-		$this->getModel()->addCollection(
-			array(
-				'isAdmin' => $this->isAdminAuthorized,
-			)
-		);
+		$this->getModel()->set('isAdmin', $this->isAdminAuthorized);
 	}
 
 	/**

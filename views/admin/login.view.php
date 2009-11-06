@@ -13,14 +13,15 @@
 
 $this->setMaster(
 	'content.master',
-	Model::create()
-		->addCollection(array(
-			'title' => 'Phoebius administration',
-			'breadScrumbs' => array(
-				new ViewLink('Admin', '/admin/')
-			),
-		))
-); ?>
+	Model::from(array(
+		'title' => 'Phoebius administration',
+		'breadScrumbs' => array(
+			new ViewLink('Admin', '/admin/')
+		),
+	))
+);
+
+?>
 
   <!--Content-->
   <div class="content">

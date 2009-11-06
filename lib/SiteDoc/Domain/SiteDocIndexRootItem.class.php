@@ -64,15 +64,14 @@ final class SiteDocIndexRootItem extends SiteDocIndexItem
 			UIViewPresentation
 				::view(
 					'content',
-					Model::create()
-						->addCollection(array(
-							'siteDoc' => $child->getDoc(),
-							'siteDocIndexItem' => $child,
-							'activeMenuItem' => $child->getSitePart(),
-							'breadScrumbs' => array(
-								new ViewLink('Support', '/support/'),
-							),
-						))
+					Model::from(array(
+						'siteDoc' => $child->getDoc(),
+						'siteDocIndexItem' => $child,
+						'activeMenuItem' => $child->getSitePart(),
+						'breadScrumbs' => array(
+							new ViewLink('Support', '/support/'),
+						),
+					))
 				)
 			->render(new FileWriteStream($filepath));
 

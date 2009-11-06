@@ -13,12 +13,6 @@
 
 $this->renderPartial('parts/header');
 
-?>
-
-<?=$this->getUIControl()->getDefaultContent()?>
-
-<?php
+echo $this->getUIControl()->getDefaultContent();
 
 $this->renderPartial('parts/footer');
-
-?>

@@ -11,30 +11,32 @@
  *
  ************************************************************************************************/
 
-extract(
-	$this->getVariables(array(
-		'title', 'activeMenuItem', 'forDoxy', 'isAdmin', 'gSearch'
-	))
+$this->expect(
+	'title'
+);
+
+$this->accept(
+	'activeMenuItem', 'forDoxy', 'isAdmin', 'gSearch'
 );
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-  <title><?=$title?></title>
+  <title><?=$this->title?></title>
 
-  <?php if ($gSearch) { ?>
+  <?php if ($this->gSearch) { ?>
 	<link href="http://www.google.com/uds/css/gsearch.css" type="text/css" rel="stylesheet">
 	<script src="http://www.google.com/uds/api?file=uds.js&v=1.0&key=ABQIAAAAAnOPGWpvs9KTKLnNT45LABSGpwI8LAIVwrMkDhsm7XR6QRyo9hQKOiUGnI7BVs4ctFA42qIBQuSuVA" type="text/javascript"></script>
   <?php } ?>
 
-  <?php if ($forDoxy) {?>
+  <?php if ($this->forDoxy) {?>
   	<link href="/support/api/tabs.css" rel="stylesheet" type="text/css" />
   <?php }?>
 
   <link href="/css/layout.css" rel="stylesheet" type="text/css" />
   <link href="/css/common.css" rel="stylesheet" type="text/css" />
-  <?php if ($forDoxy) {?>
+  <?php if ($this->forDoxy) {?>
   	<link href="/css/doxy.css" rel="stylesheet" type="text/css" />
   <?php }?>
 

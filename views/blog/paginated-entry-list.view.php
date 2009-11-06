@@ -11,46 +11,36 @@
  *
  ************************************************************************************************/
 
-extract(
-	$this->getVariables(array(
-		'countLeft', 'countRight', 'notIndexPage', 'entries', 'isAdmin'
-	))
+$this->expect(
+	'countLeft', 'countRight', 'notIndexPage',
+	'entries'
 );
+
+$this->accept('isAdmin');
 
 ?><!--Content-->
   <div class="content">
     <div class="container">
 
-	<?php foreach ($entries as $entry) { ?>
+	<?php foreach ($this->entries as $entry) {
+		$this->renderPartial(
+			'parts/listed-entry',
+			Model::from()->set('entry', $entry)
+		);
+	}
 
-      <div class="article">
-        <h2><a href="/blog/<?php echo $entry->getPubDate()->toFormattedString('d.m.Y');?>/<?php echo $entry->getRestId();?>"><?php echo $entry->getTitle();?></a></h2>
-        <?php echo $entry->getText();?>
-        <ul class="info-panel">
-          <li><?=$entry->getPubDate()->toFormattedString('F d, Y')?></li>
-          <!-- <li><a href="#">tag1</a>, <a href="#">tag2</a>, <a href="#">tag3</a>, <a href="#">tag4</a> </li>  -->
-          <?php if ($isAdmin) { ?>
-          	<li>
-          		<a href="/admin/entry/?id=<?=$entry->getId()?>">edit</a> &mdash;
-          		<a href="/admin/entry/delete/?id=<?=$entry->getId()?>"><font color="red">&times;</font></a>
-          	</li>
-          <?php }?>
-        </ul>
-      </div>
-
-	<?php }?>
-
+	?>
 
       <ul class="paging">
-		<?php if ($countLeft) { ?>
-			<li><span class="arr">&larr;</span> <a href="/blog/?skip=<?php echo $countLeft; ?>"><b>Previous</b></a></li>
+		<?php if ($this->countLeft) { ?>
+			<li><span class="arr">&larr;</span> <a href="/blog/?skip=<?php echo $this->countLeft; ?>"><b>Previous</b></a></li>
 		<?php } else { ?>
 			<li class="passive"><span class="arr">&larr;</span> <b>Previous</b></li>
 		<?php }?>
 
-		<?php if ($countRight) { ?>
-			<li><a href="/blog/?skip=<?php echo $countRight; ?>"><b>Next</b></a> <span class="arr">&rarr;</span></li>
-		<?php } elseif ($notIndexPage) { ?>
+		<?php if ($this->countRight) { ?>
+			<li><a href="/blog/?skip=<?php echo $this->countRight; ?>"><b>Next</b></a> <span class="arr">&rarr;</span></li>
+		<?php } elseif ($this->notIndexPage) { ?>
 			<li><a href="/blog/"><b>Next</b></a> <span class="arr">&rarr;</span></li>
 		<?php } else { ?>
 			<li class="passive"><b>Next</b></a> <span class="arr">&rarr;</span></li>

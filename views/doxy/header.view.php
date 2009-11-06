@@ -12,5 +12,5 @@
  ************************************************************************************************/
 
 $this->renderPartial('parts/header');
-$this->renderPartial('parts/pathway');
 
+$this->renderPartial('parts/pathway');

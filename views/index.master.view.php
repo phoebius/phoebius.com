@@ -11,23 +11,20 @@
  *
  ************************************************************************************************/
 
-extract(
-	$this->getVariables(array(
-		'release', 'isAdmin'
-	))
+$this->expect(
+	'release', 'isAdmin'
+);
+
+$this->setMaster(
+	'master',
+	$this->model
+		->spawn()
+		->fill(array(
+			'title' => 'Phoebius framework',
+		))
 );
 
 ?>
-
-<?php $this->setMaster(
-	'master',
-	Model::create()
-		->addCollection(array(
-			'title' => 'Phoebius framework',
-			'isAdmin' => $isAdmin
-		))
-); ?>
-
 
   <!--Content-->
   <div class="description">
@@ -52,15 +49,15 @@ extract(
         <li class="download">
           <h4>The latest release:</h4>
           <p>
-          	Phoebius v<?=$release->getVersion()?><br />
-          	<i class="note"><?=$release->getDate()->toFormattedString('F d, Y')?></i>
+          	Phoebius v<?=$this->release->getVersion()?><br />
+          	<i class="note"><?=$this->release->getDate()->toFormattedString('F d, Y')?></i>
           </p>
           <table>
              <tr>
                <td>
                   <div class="button">
                     <div class="rounded l"></div>
-                    <div class="label"><a href="/src/phoebius-framework-v<?=$release->getVersion()?>.rar">Download now</a></div>
+                    <div class="label"><a href="/src/phoebius-framework-v<?=$this->release->getVersion()?>.rar">Download now</a></div>
                     <div class="rounded r"></div>
                   </div>
                </td>
@@ -68,8 +65,8 @@ extract(
            </table>
         </li>
         <li class="changes">
-          <?=SiteDocContentBlockRenderer::create()->renderParagraph($release->getAbout())?>
-          <div class="more"><a href="<?=$release->getPage()?>">Learn more</a>&nbsp;<span class="arr">&rarr;</span></div>
+          <?=SiteDocContentBlockRenderer::create()->renderParagraph($this->release->getAbout())?>
+          <div class="more"><a href="<?=$this->release->getPage()?>">Learn more</a>&nbsp;<span class="arr">&rarr;</span></div>
         </li>
       </ul>
 

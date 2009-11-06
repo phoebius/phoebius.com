@@ -11,23 +11,21 @@
  *
  ************************************************************************************************/
 
-extract(
-	$this->getVariables(array(
-		'breadScrumbs',
-	))
-);
+$this->accept('breadScrumbs');
 
 ?><div class="pathway">
   <div class="container">
   <?php
 
-  	if (!is_array($breadScrumbs)) {
-  		$breadScrumbs = array();
+  	if (!is_array($this->breadScrumbs)) {
+  		$this->breadScrumbs = array();
   	}
-  	array_unshift($breadScrumbs, new ViewLink('Home', '/'));
 
   	$pathWay = array();
-  	foreach ($breadScrumbs as $item) {
+
+  	$pathWay[] = '<a href="/">Home</a>';
+
+  	foreach ($this->breadScrumbs as $item) {
   		$pathWay[] = '<a href="' . $item->getAddress() . '">' . $item->getName() . '</a>';
   	}
 

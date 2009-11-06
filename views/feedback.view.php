@@ -11,22 +11,19 @@
  *
  ************************************************************************************************/
 
-extract(
-	$this->getVariables(array(
-		'submitted',
-	))
-);
+$this->accept('submitted');
 
 $this->setMaster(
 	'content.master',
-	Model::create()
-		->addCollection(array(
-			'title' => 'Phoebius feedback',
-			'breadScrumbs' => array(
-				new ViewLink('Support', '/support/')
-			),
-		))
-); ?>
+	Model::from(array(
+		'title' => 'Phoebius feedback',
+		'breadScrumbs' => array(
+			new ViewLink('Support', '/support/')
+		),
+	))
+);
+
+?>
 
   <!--Content-->
   <div class="content">
@@ -45,7 +42,7 @@ $this->setMaster(
               <h1>Feedback</h1>
               <div class="article">
 
-			<?php if ($submitted) { ?>
+			<?php if ($this->submitted) { ?>
 				<p>Your message has been received, and we will reply as soon as possible.</p>
 				<p>Thanks.</p>
 			<?php } else { ?>

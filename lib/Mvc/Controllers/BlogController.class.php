@@ -27,7 +27,7 @@ class BlogController extends BasePhoebiusController
 		);
 		$releases->build();
 
-		$this->getModel()->addCollection(array(
+		$this->getModel()->fill(array(
 			'release' => $releases->getLatestRelease(),
 			'breadScrumbs' => array(
 				new ViewLink('Blog', '/blog/')
@@ -56,9 +56,7 @@ class BlogController extends BasePhoebiusController
 				->orderBy('pubTime', SqlOrderDirection::desc())
 				->getList();
 
-		$count = EntityQuery::create(BlogEntry::orm())->getCount();
-
-		$this->getModel()->addCollection(array(
+		$this->getModel()->fill(array(
 			'entries' => $blogEntries,
 			'breadScrumbs' => array(
 				new ViewLink('Blog', '/blog/')
@@ -110,7 +108,7 @@ class BlogController extends BasePhoebiusController
 
 		$count = EntityQuery::create(BlogEntry::orm())->getCount();
 
-		$this->getModel()->addCollection(array(
+		$this->getModel()->fill(array(
 			'entries' => $blogEntries,
 			'countLeft' =>
 				$count - $offset - sizeof($blogEntries) > 0

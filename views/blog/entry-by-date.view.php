@@ -11,10 +11,6 @@
  *
  ************************************************************************************************/
 
-$this->setMaster(
-	'content.master'
-);
+$this->setMaster('content.master');
 
 $this->renderPartial('blog/entry-list');
-
-?>

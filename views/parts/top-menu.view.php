@@ -11,13 +11,10 @@
  *
  ************************************************************************************************/
 
-extract(
-	$this->getVariables(array(
-		'isAdmin', 'activeMenuItem'
-	))
-);
+$this->accept('isAdmin', 'activeMenuItem');
 
-?><ul class="navigation">
+?>
+<ul class="navigation">
 <?php
 	$menu = array(
 		'Download' => '/download.html',
@@ -28,15 +25,15 @@ extract(
 
 	foreach ($menu as $item => $url) {
 		?><li><a<?=(
-			$item == $activeMenuItem
+			$item == $this->activeMenuItem
 				? ' class="selected"'
 				: ''
 		)?> href="<?=$url?>"><?=$item?></a></li><?
 	}
 
-	if ($isAdmin) {
+	if ($this->isAdmin) {
 		?><li><a<?=(
-			$item == $activeMenuItem
+			$item == $this->activeMenuItem
 				? ' class="selected"'
 				: ''
 		)?> href="/admin/entry/">New blog entry</a></li><?

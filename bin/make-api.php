@@ -48,16 +48,15 @@ try
 	UIViewPresentation
 		::view(
 			'doxy/header',
-			Model::create()
-					->addCollection(array(
-						'title' => 'API Documentation',
-						'activeMenuItem' =>'Support',
-						'breadScrumbs' => array(
-							new ViewLink('Support', '/support/'),
-							new ViewLink('API', '/support/api/'),
-						),
-						'forDoxy' => true
-					))
+			Model::from(array(
+				'title' => 'API Documentation',
+				'activeMenuItem' =>'Support',
+				'breadScrumbs' => array(
+					new ViewLink('Support', '/support/'),
+					new ViewLink('API', '/support/api/'),
+				),
+				'forDoxy' => true
+			))
 		)
 		->render($htmlHeader);
 	$doxyGen->setHtmlHeader($htmlHeader->getPath());

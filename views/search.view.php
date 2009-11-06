@@ -11,23 +11,20 @@
  *
  ************************************************************************************************/
 
-extract(
-	$this->getVariables(array(
-		'query',
-	))
-);
+$this->accept('query');
 
 $this->setMaster(
 	'content.master',
-	Model::create()
-		->addCollection(array(
-			'title' => 'Search',
-			'breadScrumbs' => array(
-				new ViewLink('Search', '/search/')
-			),
-			'gSearch' => true
-		))
-); ?>
+	Model::from(array(
+		'title' => 'Search',
+		'breadScrumbs' => array(
+			new ViewLink('Search', '/search/')
+		),
+		'gSearch' => true
+	))
+);
+
+?>
 
 <!--Content-->
   <div class="content">
@@ -53,7 +50,7 @@ $this->setMaster(
               <div class="article" id="content">Searching...</div>
 
 <script language="Javascript" type="text/javascript">
-	var query = '<?=addslashes($query)?>';
+	var query = '<?=addslashes($this->query)?>';
 	var searchControl = new GSearchControl();
 	var webSearch = new GwebSearch();
 	webSearch.setSiteRestriction ("phoebius.org")

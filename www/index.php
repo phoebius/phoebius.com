@@ -62,7 +62,7 @@ catch (Exception $e)
 {
 	if (APP_SLOT_CONFIGURATION & SLOT_CONFIGURATION_FLAG_DEVELOPMENT) {
 		//echo '<pre>', $e->getTraceAsString();
-		//throw $e;
+		throw $e;
 	}
 	else {
 		mail(

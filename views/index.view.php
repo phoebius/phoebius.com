@@ -11,8 +11,6 @@
  *
  ************************************************************************************************/
 
-$this->setMaster(
-	'index.master'
-);
+$this->setMaster('index.master');
 
 $this->renderPartial('blog/paginated-entry-list');
