@@ -86,7 +86,7 @@ class BlogController extends BasePhoebiusController
 			throw $e;
 		}
 
-		$this->getModel()->addCollection(array(
+		$this->getModel()->fill(array(
 			'entries' => array($entry),
 			'breadScrumbs' => array(
 				new ViewLink('Blog', '/blog/')

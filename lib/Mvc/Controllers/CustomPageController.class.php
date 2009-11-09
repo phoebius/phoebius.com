@@ -39,7 +39,7 @@ class CustomPageController extends BasePhoebiusController
 
 	function action_search(String $query = null)
 	{
-		$this->getModel()->addCollection(array(
+		$this->getModel()->fill(array(
 			'query' => $query ? $query->getValue() : null
 		));
 
@@ -77,7 +77,7 @@ class CustomPageController extends BasePhoebiusController
 			return new RedirectResult(new HttpUrl('/feedback/?submitted=1'));
 		}
 
-		$this->getModel()->addCollection(array(
+		$this->getModel()->fill(array(
 				'submitted' => $submitted,
 			)
 		);
