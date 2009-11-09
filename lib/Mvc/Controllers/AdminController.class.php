@@ -59,7 +59,7 @@ class AdminController extends BaseSiteAdminController
 			return new RedirectResult(new HttpUrl('/admin/entry/'));
 		}
 
-		$this->getModel()->addCollection(
+		$this->getModel()->fill(
 			array(
 				'entry' => new BlogEntry
 			)
