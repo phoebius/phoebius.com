@@ -35,6 +35,18 @@ class PhoebiusRoutingPolicy extends ChainedRoutingPolicy
 
 	protected function fillRoutes()
 	{
+		$this->add(
+			'blog-entry',
+			'/blog/:date/:custId/:entryRestId*',
+			array(
+				'date' => new Type('Date'), // explicit defintion of a type
+				'custId' => $this->getEntityAssembler(Assembler::BY_ID),
+				//'custId' => function ($id) { return Entity::dao()->getById($id); }, // PHP 5.3+ Closure support
+				'entryRestId' => null
+			)
+		);
+
+
 		$this->addRule(
 			'index',
 			RewriteRuleChain::create(array(
