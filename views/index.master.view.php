@@ -19,7 +19,7 @@ $this->setMaster(
 	'master',
 	$this->model
 		->spawn()
-		->fill(array(
+		->append(array(
 			'title' => 'Phoebius framework',
 		))
 );

@@ -17,7 +17,7 @@ $this->setMaster(
 	'content.master',
 	$this->model
 		->spawn()
-		->fill(array(
+		->append(array(
 			'title' => $this->siteDoc->getTitle(),
 	))
 );

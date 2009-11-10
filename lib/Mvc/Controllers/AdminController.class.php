@@ -41,7 +41,7 @@ class AdminController extends BaseSiteAdminController
 			return new RedirectResult(new HttpUrl('/blog/' . $id->toUrl()));
 		}
 
-		$this->getModel()->fill(
+		$this->getModel()->append(
 			array(
 				'entry' => $id
 			)
@@ -59,7 +59,7 @@ class AdminController extends BaseSiteAdminController
 			return new RedirectResult(new HttpUrl('/admin/entry/'));
 		}
 
-		$this->getModel()->fill(
+		$this->getModel()->append(
 			array(
 				'entry' => new BlogEntry
 			)
