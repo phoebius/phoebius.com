@@ -15,7 +15,7 @@ $this->accept('submitted');
 
 $this->setMaster(
 	'content.master',
-	Model::from(array(
+	Model::create(array(
 		'title' => 'Phoebius feedback',
 		'breadScrumbs' => array(
 			new ViewLink('Support', '/support/')

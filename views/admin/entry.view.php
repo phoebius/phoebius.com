@@ -15,7 +15,7 @@ $this->expect('entry');
 
 $this->setMaster(
 	'content.master',
-	Model::from(array(
+	Model::create(array(
 		'title' => 'Phoebius administration',
 		'breadScrumbs' => array(
 			new ViewLink('Admin', '/admin/'),

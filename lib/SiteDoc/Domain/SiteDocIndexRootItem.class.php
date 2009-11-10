@@ -64,7 +64,7 @@ final class SiteDocIndexRootItem extends SiteDocIndexItem
 			UIViewPresentation
 				::view(
 					'content',
-					Model::from(array(
+					Model::create(array(
 						'siteDoc' => $child->getDoc(),
 						'siteDocIndexItem' => $child,
 						'activeMenuItem' => $child->getSitePart(),

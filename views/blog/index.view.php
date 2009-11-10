@@ -13,7 +13,7 @@
 
 $this->setMaster(
 	'content.master',
-	Model::from(array(
+	Model::create(array(
 		'title' => 'Phoebius blog'
 	))
 );

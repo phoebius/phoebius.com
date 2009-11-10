@@ -48,7 +48,7 @@ try
 	UIViewPresentation
 		::view(
 			'doxy/header',
-			Model::from(array(
+			Model::create(array(
 				'title' => 'API Documentation',
 				'activeMenuItem' =>'Support',
 				'breadScrumbs' => array(
