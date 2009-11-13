@@ -32,22 +32,24 @@ abstract class BasePhoebiusController extends ActionBasedController
 	 * @throws RouteHandleException
 	 * @return void
 	 */
-	function handle(IControllerContext $context)
+	function handle(Trace $trace)
 	{
-		$this->checkCredentials($context);
+		$this->checkCredentials($trace);
 
-		parent::handle($context);
+		parent::handle($trace);
 	}
 
-	protected function checkCredentials(IControllerContext $context)
+	protected function checkCredentials(Trace $trace)
 	{
 		if (!$this->clientToken) {
 			$this->clientToken = new ClientToken(
-				$context->getAppContext()->getServer()->getClientHash(true)
+				$trace->getWebContext()->getServer()->getClientHash(true)
 			);
+			
+			$request = $trace->getWebContext()->getRequest();
 
 			try {
-				$authkey = $context->getAppContext()->getRequest()->getAnyVariable(self::ADMIN_AUTHORIZED_COOKIE_NAME);
+				$authkey = $request[self::ADMIN_AUTHORIZED_COOKIE_NAME];
 
 				$this->clientToken->getData($authkey);
 

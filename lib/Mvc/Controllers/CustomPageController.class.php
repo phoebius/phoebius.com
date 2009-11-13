@@ -24,7 +24,7 @@ class CustomPageController extends BasePhoebiusController
 {
 	function action_404()
 	{
-		Header($this->getContext()->getAppContext()->getRequest()->getProtocol() . ' Not Found');
+		//Header($this->getContext()->getAppContext()->getRequest()->getProtocol() . ' Not Found');
 
 		$builder = XmlSiteDocBuilder::create(PHOEBIUS_SITE_DOCS_SRC_PATH . '/xml/site/404.xml');
 		$this->getModel()->append(array(

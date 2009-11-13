@@ -15,7 +15,7 @@ $this->accept('query');
 
 $this->setMaster(
 	'content.master',
-	Model::create(array(
+	new Model(array(
 		'title' => 'Search',
 		'breadScrumbs' => array(
 			new ViewLink('Search', '/search/')

@@ -22,7 +22,7 @@ $this->expect('entry');
         <ul class="info-panel">
           <li><?=$this->entry->getPubDate()->toFormattedString('F d, Y')?></li>
           <!-- <li><a href="#">tag1</a>, <a href="#">tag2</a>, <a href="#">tag3</a>, <a href="#">tag4</a> </li>  -->
-          <?php if ($this->isAdmin) { ?>
+          <?php if (@$this->isAdmin) { ?>
 	          <li>
 		          <a href="/admin/entry/?id=<?=$this->entry->getId()?>">edit</a> &mdash;
 		          <a href="/admin/entry/delete/?id=<?=$this->entry->getId()?>"><font color="red">&times;</font></a>

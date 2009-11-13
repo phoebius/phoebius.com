@@ -32,7 +32,7 @@ $this->setMaster(
          <!--Left panel-->
          <div class="left">
             <div class="container">
-            <?php if ($this->siteDocIndexItem && $this->siteDocIndexItem->getParent()->hasChildren()) { ?>
+            <?php if (@$this->siteDocIndexItem && $this->siteDocIndexItem->getParent()->hasChildren()) { ?>
               <ul class="menu">
               	<?php foreach ($this->siteDocIndexItem->getParent()->getChildren() as $indexItem) { ?>
                 <li><a<?=(
