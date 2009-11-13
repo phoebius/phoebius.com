@@ -11,6 +11,8 @@
  *
  ************************************************************************************************/
 
+$this->model->set('title', $this->entries[0]->getTitle());
+
 $this->setMaster('content.master');
 
 $this->renderPartial('blog/entry-list');

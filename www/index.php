@@ -36,27 +36,22 @@ try
 	// your stuff goes here
 	//
 
-	$request = WebRequest::create(new WebRequestDictionary($_SERVER))
-		->setGetVars($_GET)
-		->setPostVars($_POST)
-		->setFilesVars($_FILES)
-		->setCookieVars($_COOKIE);
+	$request = new WebRequest(
+		new WebRequestDictionary($_SERVER),
+		$_GET, $_POST, $_COOKIE, $_FILES
+	);
 
 	$webContext = new WebContext(
 		$request,
-		new WebResponse(true),
+		new WebResponse(true, $request),
 		new WebServerState(new WebServerStateDictionary($_SERVER))
 	);
 
-	$routingPolicy = new PhoebiusRoutingPolicy();
-	$route = new Route();
+	$router = new PhoebiusRouter();
 
-	$chainedRouteContext = $routingPolicy->getMatchedRuleContext($webContext->getRequest());
-
-	$chainedRouteContext->handle(
-		$chainedRouteContext->getRule()->rewrite($webContext->getRequest(), $route),
-		$webContext
-	);
+	$trace = $router->getTrace($webContext);
+	
+	$trace->handle();
 }
 catch (Exception $e)
 {
@@ -83,10 +78,7 @@ catch (Exception $e)
 		);
 	}
 
-	$chainedRouteContext->handle(
-		$routingPolicy->getRule('404')->rewrite($webContext->getRequest(), new Route()),
-		$webContext
-	);
+	$router->getFallbackTrace()->handle($trace);
 }
 
 ?>

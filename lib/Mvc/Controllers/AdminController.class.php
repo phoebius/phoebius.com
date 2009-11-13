@@ -25,25 +25,27 @@ class AdminController extends BaseSiteAdminController
 		return 'admin/login';
 	}
 
-	function action_deleteEntry(BlogEntry $id)
+	function action_deleteEntry(Integer $id)
 	{
-		BlogEntry::dao()->drop($id);
+		BlogEntry::dao()->drop($id->getValue());
 
 		return new RedirectResult(new HttpUrl('/'));
 	}
 
-	function action_editEntry(BlogEntry $id, array $entryData = null)
+	function action_editEntry(Integer $id, array $entryData = null)
 	{
+		$entry = BlogEntry::dao()->getById($id->getValue());
+		
 		if (is_array($entryData)) {
-			$this->fillEntry($entryData, $id);
-			BlogEntry::dao()->save($id);
+			$this->fillEntry($entryData, $entry);
+			BlogEntry::dao()->save($entry);
 
-			return new RedirectResult(new HttpUrl('/blog/' . $id->toUrl()));
+			return new RedirectResult(new HttpUrl('/blog/' . $entry->toUrl()));
 		}
 
-		$this->getModel()->fill(
+		$this->getModel()->append(
 			array(
-				'entry' => $id
+				'entry' => $entry
 			)
 		);
 
@@ -59,7 +61,7 @@ class AdminController extends BaseSiteAdminController
 			return new RedirectResult(new HttpUrl('/admin/entry/'));
 		}
 
-		$this->getModel()->fill(
+		$this->getModel()->append(
 			array(
 				'entry' => new BlogEntry
 			)

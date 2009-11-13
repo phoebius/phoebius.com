@@ -56,7 +56,7 @@ final class ClientToken
 				$this->authkeyCache[$authkey] = unserialize($serial);
 			}
 			catch (ErrorException $e) {
-				throw new StateException('invalid authkey ' . $authkey);
+				throw new StateException('invalid authkey');
 			}
 		}
 
