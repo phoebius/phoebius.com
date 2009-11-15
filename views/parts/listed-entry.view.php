@@ -16,7 +16,14 @@ $this->expect('entry');
 ?>
 <div class="article">
         <h2>
-        	<a href="/blog/<?=$this->entry->getPubDate()->toFormattedString('d.m.Y')?>/<?=$this->entry->getRestId()?>"><?=$this->entry->getTitle()?></a>
+			<?=$this->getHref(
+				$this->entry->getTitle(),
+				'blogEntry',
+				array(
+					'date' => $this->entry->getPubDate()->toFormattedString('d.m.Y'),
+					'entryRestId' => $this->entry->getRestId()
+				)
+			)?>
         </h2>
         <?=$this->entry->getText()?>
         <ul class="info-panel">
@@ -24,8 +31,16 @@ $this->expect('entry');
           <!-- <li><a href="#">tag1</a>, <a href="#">tag2</a>, <a href="#">tag3</a>, <a href="#">tag4</a> </li>  -->
           <?php if (@$this->isAdmin) { ?>
 	          <li>
-		          <a href="/admin/entry/?id=<?=$this->entry->getId()?>">edit</a> &mdash;
-		          <a href="/admin/entry/delete/?id=<?=$this->entry->getId()?>"><font color="red">&times;</font></a>
+					<?=$this->getHref(
+						'edit',
+						'adminEditEntry',
+						array('id' => $this->entry->getId())	
+					)?> &mdash;
+					<?=$this->getHref(
+						'&times;',
+						'adminDeleteEntry',
+						array('id' => $this->entry->getId())	
+					)?>
 	          </li>
           <?php }?>
         </ul>
