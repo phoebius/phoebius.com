@@ -39,7 +39,7 @@ $this->setMaster(
             <div class="container">
               <h1>Please Log In</h1>
               <div class="article">
-              <form method="post" action="/admin/">
+              <form method="post" action="<?=$this->getSelfHref()?>">
               	<p>
 						<table>
 							<tr>

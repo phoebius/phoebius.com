@@ -16,7 +16,7 @@ $this->expect('entry');
 ?>
 <div class="article">
         <h2>
-			<?=$this->getHref(
+			<?=$this->getHtmlLink(
 				$this->entry->getTitle(),
 				'blogEntry',
 				array(
@@ -31,12 +31,12 @@ $this->expect('entry');
           <!-- <li><a href="#">tag1</a>, <a href="#">tag2</a>, <a href="#">tag3</a>, <a href="#">tag4</a> </li>  -->
           <?php if (@$this->isAdmin) { ?>
 	          <li>
-					<?=$this->getHref(
+					<?=$this->getHtmlLink(
 						'edit',
 						'adminEditEntry',
 						array('id' => $this->entry->getId())	
 					)?> &mdash;
-					<?=$this->getHref(
+					<?=$this->getHtmlLink(
 						'&times;',
 						'adminDeleteEntry',
 						array('id' => $this->entry->getId())	

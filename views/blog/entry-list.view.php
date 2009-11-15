@@ -22,7 +22,7 @@ $this->accept('isAdmin');
 	<?php foreach ($this->entries as $entry) {
 		$this->renderPartial(
 			'parts/listed-entry',
-			Model::create()->set('entry', $entry)
+			$this->getModel()->spawn()->set('entry', $entry)
 		);
 	}
 
