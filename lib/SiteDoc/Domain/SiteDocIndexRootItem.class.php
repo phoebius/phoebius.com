@@ -59,21 +59,22 @@ final class SiteDocIndexRootItem extends SiteDocIndexItem
 		if (!is_dir(dirname($filepath))) {
 			mkdir(dirname($filepath), null, true);
 		}
+		
+		$presentation = new UIViewPresentation('content');
+		$presentation->setModel(
+			Model::create(array(
+				'siteDoc' => $child->getDoc(),
+				'siteDocIndexItem' => $child,
+				'activeMenuItem' => $child->getSitePart(),
+				'breadScrumbs' => array(
+					new ViewLink('Support', '/support/'),
+				),
+			))
+		);
+		$presentation->setRouteTable(new PhoebiusRouter);
 
-		$htmlRenderer =
-			UIViewPresentation
-				::view(
-					'content',
-					Model::create(array(
-						'siteDoc' => $child->getDoc(),
-						'siteDocIndexItem' => $child,
-						'activeMenuItem' => $child->getSitePart(),
-						'breadScrumbs' => array(
-							new ViewLink('Support', '/support/'),
-						),
-					))
-				)
-			->render(new FileWriteStream($filepath));
+		$page = new UIPage($presentation);
+		$page->render(new FileWriteStream($filepath));
 
 		$this->traverse($child);
 	}
