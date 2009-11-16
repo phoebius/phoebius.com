@@ -45,28 +45,34 @@ try
 	);
 
 	$htmlHeader = new TempFile();
-	UIViewPresentation
-		::view(
-			'doxy/header',
-			Model::create(array(
-				'title' => 'API Documentation',
-				'activeMenuItem' =>'Support',
-				'breadScrumbs' => array(
-					new ViewLink('Support', '/support/'),
-					new ViewLink('API', '/support/api/'),
-				),
-				'forDoxy' => true
-			))
-		)
-		->render($htmlHeader);
+	
+	$presentation = new UIViewPresentation('doxy/header');
+	$presentation->setModel(
+		Model::create(array(
+			'title' => 'API Documentation',
+			'activeMenuItem' =>'Support',
+			'breadScrumbs' => array(
+				new ViewLink('Support', '/support/'),
+				new ViewLink('API', '/support/api/'),
+			),
+		'forDoxy' => true
+		))
+	);
+	$presentation->setRouteTable(new PhoebiusRouter);
+	
+	$page = new UIPage($presentation);
+	$page->render($htmlHeader);
+		
 	$doxyGen->setHtmlHeader($htmlHeader->getPath());
-
+	
+	
+	$presentation = new UIViewPresentation('parts/footer');
+	$presentation->setRouteTable(new PhoebiusRouter);
+	
+	$page = new UIPage($presentation);
 	$htmlFooter = new TempFile();
-	UIViewPresentation
-		::view(
-			'parts/footer'
-		)
-		->render($htmlFooter);
+	$page->render($htmlFooter);
+	
 	$doxyGen->setHtmlFooter($htmlFooter->getPath());
 
 	$doxyGen->addInputPath($header->getPath());
