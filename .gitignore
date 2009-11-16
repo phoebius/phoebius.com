@@ -1,6 +1,11 @@
 .*
 !.keepdir
 
+*.phpproj
+*.puo
+*.sln
+*.suo
+
 tmp/*
 !tmp/.keepdir
 
