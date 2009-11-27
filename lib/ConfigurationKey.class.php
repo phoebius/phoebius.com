@@ -14,24 +14,14 @@
 /**
  * @ingroup Phoebius_Domain
  */
-final class ConfigurationKey extends Enumeration implements IIdentifierMappable
+final class ConfigurationKey extends Enumeration implements ICompositeIdentifier, IBoxable
 {
 	const ADMIN_EMAIL = 'ae';
 	const ADMIN_PASSWORD = 'ap';
 
-	/**
-	 * @param scalar $value
-	 * @return ConfigurationKey
-	 * @throws TypeCastException
-	 */
 	static function cast($value)
 	{
 		return new self ($value);
-	}
-
-	function toScalarId()
-	{
-		return $this->getValue();
 	}
 }
 

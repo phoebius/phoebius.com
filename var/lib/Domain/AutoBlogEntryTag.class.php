@@ -15,19 +15,19 @@
 abstract class AutoBlogEntryTag extends IdentifiableOrmEntity implements IOrmRelated, IDaoRelated
 {
 	/**
-	 * @var integer
+	 * @var scalar
 	 */
-	private $id;
+	protected $id;
 
 	/**
-	 * @var string
+	 * @var scalar
 	 */
-	private $name;
+	protected $name;
 
 	/**
-	 * @var string
+	 * @var scalar
 	 */
-	private $restId;
+	protected $restId;
 
 	/**
 	 * @return BlogEntryTagEntity
@@ -54,21 +54,24 @@ abstract class AutoBlogEntryTag extends IdentifiableOrmEntity implements IOrmRel
 	}
 
 	/**
-	 * @param integer id
-	 * @throws ArgumentException
-	 * @return BlogEntryTag an object itself
+	 * @return EntityQuery
 	 */
-	function setId(/* Integer */ $id = null)
+	static function query()
 	{
-		$this->id = is_null($id) ? null : Integer::cast($id)->getValue();
+		return new EntityQuery(self::orm());
+	}
+
+	/**
+	 * @param scalar $id
+	 * @return BlogEntryTag itself
+	 */
+	function setId($id)
+	{
+		$this->id = $id;
 
 		return $this;
 	}
 
-	/**
-	 * @internal
-	 * @return BlogEntryTag an object itself
-	 */
 	function _setId($id)
 	{
 		$this->setId($id);
@@ -77,36 +80,31 @@ abstract class AutoBlogEntryTag extends IdentifiableOrmEntity implements IOrmRel
 	}
 
 	/**
-	 * @return integer|null
+	 * @return mixed
 	 */
 	function getId()
 	{
 		return $this->id;
 	}
 
-	/**
-	 * @internal
-	 * @return integer|null
-	 */
 	function _getId()
 	{
 		return $this->getId();
 	}
 
 	/**
-	 * @param string name
-	 * @throws ArgumentException
-	 * @return BlogEntryTag an object itself
+	 * @param scalar $name
+	 * @return BlogEntryTag itself
 	 */
-	function setName(/* String */ $name)
+	function setName($name)
 	{
-		$this->name = String::cast($name)->getValue();
+		$this->name = $name;
 
 		return $this;
 	}
 
 	/**
-	 * @return string
+	 * @return mixed
 	 */
 	function getName()
 	{
@@ -114,19 +112,18 @@ abstract class AutoBlogEntryTag extends IdentifiableOrmEntity implements IOrmRel
 	}
 
 	/**
-	 * @param string restId
-	 * @throws ArgumentException
-	 * @return BlogEntryTag an object itself
+	 * @param scalar $restId
+	 * @return BlogEntryTag itself
 	 */
-	function setRestId(/* String */ $restId)
+	function setRestId($restId)
 	{
-		$this->restId = String::cast($restId)->getValue();
+		$this->restId = $restId;
 
 		return $this;
 	}
 
 	/**
-	 * @return string
+	 * @return mixed
 	 */
 	function getRestId()
 	{

@@ -14,7 +14,7 @@
  */
 final class BlogEntryTagEntityLogicalSchema implements ILogicallySchematic
 {
-	private $propertyNames = array('id','name','restId','blogEntries');
+	private $propertyNames = array('id', 'name', 'restId', 'blogEntries');
 
 	/**
 	 * Returns the name of the class representing an entity
@@ -34,29 +34,29 @@ final class BlogEntryTagEntityLogicalSchema implements ILogicallySchematic
 	}
 
 	/**
-	 * @return IOrmProperty|null
+	 * @return OrmProperty|null
 	 */
 	function getIdentifier()
 	{
-		return new OrmProperty('id',array('id'),new AutoIntPropertyType(true),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false);
+		return new OrmProperty('id', array('id'), new FundamentalPropertyType(new DBType(DBType::UINT32, false, null, null, null, true)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, true);
 	}
 
 	/**
-	 * Gets the set of {@link IOrmProperty}
+	 * Gets the set of {@link OrmProperty}
 	 * @return array
 	 */
 	function getProperties()
 	{
 		return array(
-			'id' => new OrmProperty('id',array('id'),new AutoIntPropertyType(true),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false),
-			'name' => new OrmProperty('name',array('name'),new VarcharPropertyType(null,null,false),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false),
-			'restId' => new OrmProperty('restId',array('rest_id'),new VarcharPropertyType(null,null,false),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),true),
-			'blogEntries' => new OrmProperty('blogEntries',array(),new ManyToManyContainerPropertyType(BlogEntryBlogTag::orm(),BlogEntryBlogTag::orm()->getLogicalSchema()->getProperty('BlogEntryTag'),BlogEntryBlogTag::orm()->getLogicalSchema()->getProperty('BlogEntry')),new OrmPropertyVisibility(OrmPropertyVisibility::TRANSPARENT),false)
+			'id' => $this->getIdentifier(),
+			'name' => new OrmProperty('name', array('name'), new FundamentalPropertyType(new DBType(DBType::VARCHAR, false, null, null, null, false)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, false),
+			'restId' => new OrmProperty('restId', array('rest_id'), new FundamentalPropertyType(new DBType(DBType::VARCHAR, false, null, null, null, false)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), true, false),
+			'blogEntries' => new OrmProperty('blogEntries', array(), new ManyToManyContainerPropertyType(BlogEntryBlogTag::orm(), BlogEntryBlogTag::orm()->getLogicalSchema()->getProperty('BlogEntryTag'), BlogEntryBlogTag::orm()->getLogicalSchema()->getProperty('BlogEntry')), new OrmPropertyVisibility(OrmPropertyVisibility::TRANSPARENT), false, false)
 		);
 	}
 
 	/**
-	 * @return IOrmProperty
+	 * @return OrmProperty
 	 */
 	function getProperty($name)
 	{

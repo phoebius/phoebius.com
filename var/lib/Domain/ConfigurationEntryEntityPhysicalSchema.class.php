@@ -15,19 +15,15 @@
 final class ConfigurationEntryEntityPhysicalSchema implements IPhysicallySchematic
 {
 	/**
-	 * @see IPhysicallySchematic::getDBTableName()
+	 * @see IPhysicallySchematic::getTable()
 	 * @return string
 	 */
-	function getDBTableName()
+	function getTable()
 	{
 		return 'configuration_entry';
 	}
 
-	/**
-	 * @see IPhysicallySchematic::getDBFields()
-	 * @return array
-	 */
-	function getDBFields()
+	function getFields()
 	{
 		return array('id', 'value');
 	}

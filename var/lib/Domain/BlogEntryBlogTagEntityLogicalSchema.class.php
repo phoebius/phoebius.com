@@ -14,7 +14,7 @@
  */
 final class BlogEntryBlogTagEntityLogicalSchema implements ILogicallySchematic
 {
-	private $propertyNames = array('BlogEntry','BlogEntryTag');
+	private $propertyNames = array('BlogEntry', 'BlogEntryTag');
 
 	/**
 	 * Returns the name of the class representing an entity
@@ -34,7 +34,7 @@ final class BlogEntryBlogTagEntityLogicalSchema implements ILogicallySchematic
 	}
 
 	/**
-	 * @return IOrmProperty|null
+	 * @return OrmProperty|null
 	 */
 	function getIdentifier()
 	{
@@ -42,19 +42,19 @@ final class BlogEntryBlogTagEntityLogicalSchema implements ILogicallySchematic
 	}
 
 	/**
-	 * Gets the set of {@link IOrmProperty}
+	 * Gets the set of {@link OrmProperty}
 	 * @return array
 	 */
 	function getProperties()
 	{
 		return array(
-			'BlogEntry' => new OrmProperty('BlogEntry',array('___mtm_blog_entry'),new AssociationPropertyType(BlogEntry::orm(),new AssociationMultiplicity(AssociationMultiplicity::EXACTLY_ONE),new AssociationBreakAction(AssociationBreakAction::CASCADE)),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false),
-			'BlogEntryTag' => new OrmProperty('BlogEntryTag',array('___mtm_blog_entry_tag'),new AssociationPropertyType(BlogEntryTag::orm(),new AssociationMultiplicity(AssociationMultiplicity::EXACTLY_ONE),new AssociationBreakAction(AssociationBreakAction::CASCADE)),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false)
+			'BlogEntry' => new OrmProperty('BlogEntry', array('blog_entry'), new AssociationPropertyType(BlogEntry::orm(), new AssociationMultiplicity(AssociationMultiplicity::EXACTLY_ONE), new AssociationBreakAction(AssociationBreakAction::CASCADE)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, false),
+			'BlogEntryTag' => new OrmProperty('BlogEntryTag', array('blog_entry_tag'), new AssociationPropertyType(BlogEntryTag::orm(), new AssociationMultiplicity(AssociationMultiplicity::EXACTLY_ONE), new AssociationBreakAction(AssociationBreakAction::CASCADE)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, false)
 		);
 	}
 
 	/**
-	 * @return IOrmProperty
+	 * @return OrmProperty
 	 */
 	function getProperty($name)
 	{

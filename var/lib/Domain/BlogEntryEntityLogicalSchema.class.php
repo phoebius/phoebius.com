@@ -14,7 +14,7 @@
  */
 final class BlogEntryEntityLogicalSchema implements ILogicallySchematic
 {
-	private $propertyNames = array('id','title','text','pubTime','pubDate','restId','entryTags');
+	private $propertyNames = array('id', 'title', 'text', 'pubTime', 'pubDate', 'restId', 'entryTags');
 
 	/**
 	 * Returns the name of the class representing an entity
@@ -34,32 +34,32 @@ final class BlogEntryEntityLogicalSchema implements ILogicallySchematic
 	}
 
 	/**
-	 * @return IOrmProperty|null
+	 * @return OrmProperty|null
 	 */
 	function getIdentifier()
 	{
-		return new OrmProperty('id',array('id'),new AutoIntPropertyType(true),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false);
+		return new OrmProperty('id', array('id'), new FundamentalPropertyType(new DBType(DBType::UINT32, false, null, null, null, true)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, true);
 	}
 
 	/**
-	 * Gets the set of {@link IOrmProperty}
+	 * Gets the set of {@link OrmProperty}
 	 * @return array
 	 */
 	function getProperties()
 	{
 		return array(
-			'id' => new OrmProperty('id',array('id'),new AutoIntPropertyType(true),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false),
-			'title' => new OrmProperty('title',array('title'),new VarcharPropertyType(null,null,false),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false),
-			'text' => new OrmProperty('text',array('text'),new VarcharPropertyType(null,null,false),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false),
-			'pubTime' => new OrmProperty('pubTime',array('pub_time'),new TimestampPropertyType(false),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false),
-			'pubDate' => new OrmProperty('pubDate',array('pub_date'),new DatePropertyType(false),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false),
-			'restId' => new OrmProperty('restId',array('rest_id'),new VarcharPropertyType(null,null,false),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false),
-			'entryTags' => new OrmProperty('entryTags',array(),new ManyToManyContainerPropertyType(BlogEntryBlogTag::orm(),BlogEntryBlogTag::orm()->getLogicalSchema()->getProperty('BlogEntry'),BlogEntryBlogTag::orm()->getLogicalSchema()->getProperty('BlogEntryTag')),new OrmPropertyVisibility(OrmPropertyVisibility::TRANSPARENT),false)
+			'id' => $this->getIdentifier(),
+			'title' => new OrmProperty('title', array('title'), new FundamentalPropertyType(new DBType(DBType::VARCHAR, false, null, null, null, false)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, false),
+			'text' => new OrmProperty('text', array('text'), new FundamentalPropertyType(new DBType(DBType::VARCHAR, false, null, null, null, false)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, false),
+			'pubTime' => new OrmProperty('pubTime', array('pub_time'), new BoxablePropertyType('Timestamp', new DBType(DBType::DATETIME, false, null, null, null, false)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, false),
+			'pubDate' => new OrmProperty('pubDate', array('pub_date'), new BoxablePropertyType('Date', new DBType(DBType::DATE, false, null, null, null, false)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, false),
+			'restId' => new OrmProperty('restId', array('rest_id'), new FundamentalPropertyType(new DBType(DBType::VARCHAR, false, null, null, null, false)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, false),
+			'entryTags' => new OrmProperty('entryTags', array(), new ManyToManyContainerPropertyType(BlogEntryBlogTag::orm(), BlogEntryBlogTag::orm()->getLogicalSchema()->getProperty('BlogEntry'), BlogEntryBlogTag::orm()->getLogicalSchema()->getProperty('BlogEntryTag')), new OrmPropertyVisibility(OrmPropertyVisibility::TRANSPARENT), false, false)
 		);
 	}
 
 	/**
-	 * @return IOrmProperty
+	 * @return OrmProperty
 	 */
 	function getProperty($name)
 	{

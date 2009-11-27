@@ -11,6 +11,10 @@
  *
  ************************************************************************************************/
 
-$this->renderPartial('parts/header');
+$this->renderPartial(
+	'parts/header',
+	$this->getModel()->spawn()
+		->set('title', '$title')
+);
 
 $this->renderPartial('parts/pathway');

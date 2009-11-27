@@ -15,19 +15,15 @@
 final class BlogEntryEntityPhysicalSchema implements IPhysicallySchematic
 {
 	/**
-	 * @see IPhysicallySchematic::getDBTableName()
+	 * @see IPhysicallySchematic::getTable()
 	 * @return string
 	 */
-	function getDBTableName()
+	function getTable()
 	{
 		return 'blog_entry';
 	}
 
-	/**
-	 * @see IPhysicallySchematic::getDBFields()
-	 * @return array
-	 */
-	function getDBFields()
+	function getFields()
 	{
 		return array('id', 'title', 'text', 'pub_time', 'pub_date', 'rest_id');
 	}

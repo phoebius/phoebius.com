@@ -15,19 +15,15 @@
 final class BlogEntryTagEntityPhysicalSchema implements IPhysicallySchematic
 {
 	/**
-	 * @see IPhysicallySchematic::getDBTableName()
+	 * @see IPhysicallySchematic::getTable()
 	 * @return string
 	 */
-	function getDBTableName()
+	function getTable()
 	{
 		return 'blog_entry_tag';
 	}
 
-	/**
-	 * @see IPhysicallySchematic::getDBFields()
-	 * @return array
-	 */
-	function getDBFields()
+	function getFields()
 	{
 		return array('id', 'name', 'rest_id');
 	}

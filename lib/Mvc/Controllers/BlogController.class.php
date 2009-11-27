@@ -53,7 +53,7 @@ class BlogController extends BasePhoebiusController
 						'pubDate', $date
 					)
 				)
-				->orderBy('pubTime', SqlOrderDirection::desc())
+				->orderBy(OrderBy::desc('pubDate'))
 				->getList();
 
 		$this->getModel()->append(array(
@@ -69,18 +69,18 @@ class BlogController extends BasePhoebiusController
 	function action_showEntry(Date $date, String $entryRestId)
 	{
 		try {
-			$entry = BlogEntry::dao()->getByQuery(
+			$entry =
 				EntityQuery::create(BlogEntry::orm())
 					->where(
 						Expression::andChain()
-							->add(
-								Expression::eq('pubDate', $date)
-							)
-							->add(
-								Expression::eq('restId', $entryRestId->getValue())
-							)
+								->add(
+									Expression::eq('pubDate', $date)
+								)
+								->add(
+									Expression::eq('restId', $entryRestId->getValue())
+								)
 					)
-			);
+					->getEntity();
 		}
 		catch (OrmEntityNotFoundException $e) {
 			throw $e;
@@ -101,12 +101,14 @@ class BlogController extends BasePhoebiusController
 	{
 		$blogEntries =
 			EntityQuery::create(BlogEntry::orm())
-				->orderBy('pubTime', SqlOrderDirection::desc())
+				->orderBy(OrderBy::desc('pubDate'))
 				->setLimit(self::LIMIT_ENTRIES_PER_PAGE)
 				->setOffset($offset)
 				->getList();
 
-		$count = EntityQuery::create(BlogEntry::orm())->getCount();
+		$count =
+			EntityQuery::create(BlogEntry::orm())
+				->getCount();
 
 		$this->getModel()->append(array(
 			'entries' => $blogEntries,

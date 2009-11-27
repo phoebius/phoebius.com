@@ -15,34 +15,34 @@
 abstract class AutoBlogEntry extends IdentifiableOrmEntity implements IOrmRelated, IDaoRelated
 {
 	/**
-	 * @var integer
+	 * @var scalar
 	 */
-	private $id;
+	protected $id;
 
 	/**
-	 * @var string
+	 * @var scalar
 	 */
-	private $title;
+	protected $title;
 
 	/**
-	 * @var string
+	 * @var scalar
 	 */
-	private $text;
+	protected $text;
 
 	/**
 	 * @var Timestamp
 	 */
-	private $pubTime;
+	protected $pubTime;
 
 	/**
 	 * @var Date
 	 */
-	private $pubDate;
+	protected $pubDate;
 
 	/**
-	 * @var string
+	 * @var scalar
 	 */
-	private $restId;
+	protected $restId;
 
 	/**
 	 * @return BlogEntryEntity
@@ -69,21 +69,24 @@ abstract class AutoBlogEntry extends IdentifiableOrmEntity implements IOrmRelate
 	}
 
 	/**
-	 * @param integer id
-	 * @throws ArgumentException
-	 * @return BlogEntry an object itself
+	 * @return EntityQuery
 	 */
-	function setId(/* Integer */ $id = null)
+	static function query()
 	{
-		$this->id = is_null($id) ? null : Integer::cast($id)->getValue();
+		return new EntityQuery(self::orm());
+	}
+
+	/**
+	 * @param scalar $id
+	 * @return BlogEntry itself
+	 */
+	function setId($id)
+	{
+		$this->id = $id;
 
 		return $this;
 	}
 
-	/**
-	 * @internal
-	 * @return BlogEntry an object itself
-	 */
 	function _setId($id)
 	{
 		$this->setId($id);
@@ -92,36 +95,31 @@ abstract class AutoBlogEntry extends IdentifiableOrmEntity implements IOrmRelate
 	}
 
 	/**
-	 * @return integer|null
+	 * @return mixed
 	 */
 	function getId()
 	{
 		return $this->id;
 	}
 
-	/**
-	 * @internal
-	 * @return integer|null
-	 */
 	function _getId()
 	{
 		return $this->getId();
 	}
 
 	/**
-	 * @param string title
-	 * @throws ArgumentException
-	 * @return BlogEntry an object itself
+	 * @param scalar $title
+	 * @return BlogEntry itself
 	 */
-	function setTitle(/* String */ $title)
+	function setTitle($title)
 	{
-		$this->title = String::cast($title)->getValue();
+		$this->title = $title;
 
 		return $this;
 	}
 
 	/**
-	 * @return string
+	 * @return mixed
 	 */
 	function getTitle()
 	{
@@ -129,19 +127,18 @@ abstract class AutoBlogEntry extends IdentifiableOrmEntity implements IOrmRelate
 	}
 
 	/**
-	 * @param string text
-	 * @throws ArgumentException
-	 * @return BlogEntry an object itself
+	 * @param scalar $text
+	 * @return BlogEntry itself
 	 */
-	function setText(/* String */ $text)
+	function setText($text)
 	{
-		$this->text = String::cast($text)->getValue();
+		$this->text = $text;
 
 		return $this;
 	}
 
 	/**
-	 * @return string
+	 * @return mixed
 	 */
 	function getText()
 	{
@@ -149,9 +146,8 @@ abstract class AutoBlogEntry extends IdentifiableOrmEntity implements IOrmRelate
 	}
 
 	/**
-	 * @param Timestamp pubTime
-	 * @throws ArgumentException
-	 * @return BlogEntry an object itself
+	 * @param Timestamp $pubTime
+	 * @return BlogEntry itself
 	 */
 	function setPubTime(Timestamp $pubTime)
 	{
@@ -169,9 +165,8 @@ abstract class AutoBlogEntry extends IdentifiableOrmEntity implements IOrmRelate
 	}
 
 	/**
-	 * @param Date pubDate
-	 * @throws ArgumentException
-	 * @return BlogEntry an object itself
+	 * @param Date $pubDate
+	 * @return BlogEntry itself
 	 */
 	function setPubDate(Date $pubDate)
 	{
@@ -189,19 +184,18 @@ abstract class AutoBlogEntry extends IdentifiableOrmEntity implements IOrmRelate
 	}
 
 	/**
-	 * @param string restId
-	 * @throws ArgumentException
-	 * @return BlogEntry an object itself
+	 * @param scalar $restId
+	 * @return BlogEntry itself
 	 */
-	function setRestId(/* String */ $restId)
+	function setRestId($restId)
 	{
-		$this->restId = String::cast($restId)->getValue();
+		$this->restId = $restId;
 
 		return $this;
 	}
 
 	/**
-	 * @return string
+	 * @return mixed
 	 */
 	function getRestId()
 	{

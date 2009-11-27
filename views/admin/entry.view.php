@@ -43,11 +43,11 @@ $this->setMaster(
             <div class="container">
               <h1>Entry</h1>
               <div class="article">
-              <form method="post" action="<?=$this->getHref(
-					'adminEditEntry',
-					array( 'id' => $this->entry->getId() )
-				)?>">
-              <input type="hidden" name="id" value="<?=$this->entry->getId()?>" />
+              <form method="post" action="<?=(
+              	$this->entry->getId()
+              		? $this->getHref("adminEditEntry", array('id' => $this->entry->getId()))
+              		: $this->getHref("adminNewEntry")
+              	)?>">
               	<p>
 						<table width="75%">
 							<tr>

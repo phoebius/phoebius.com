@@ -14,29 +14,7 @@
  */
 class ConfigurationEntry extends AutoConfigurationEntry
 {
-	/**
-	 * Gets the configuration entry or creates new by the specified key if not yet created
-	 * @return ConfigurationEntry
-	 */
-	static function getEntry(ConfigurationKey $ck)
-	{
-		try {
-			$ce = self::dao()->getById($ck);
-		}
-		catch (OrmEntityNotFoundException $e) {
-			$ce = new self;
-			$ce->setId($ck);
-			$ce->setValue('');
-			try {
-				self::dao()->save($ce);
-			}
-			catch (UniqueViolationException $e) { // bogus check
-				return self::dao()->getById($ck);
-			}
-		}
 
-		return $ce;
-	}
 }
 
 ?>

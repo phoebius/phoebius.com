@@ -45,11 +45,10 @@ try
 	);
 
 	$htmlHeader = new TempFile();
-	
+
 	$presentation = new UIViewPresentation('doxy/header');
 	$presentation->setModel(
 		Model::create(array(
-			'title' => 'API Documentation',
 			'activeMenuItem' =>'Support',
 			'breadScrumbs' => array(
 				new ViewLink('Support', '/support/'),
@@ -59,26 +58,32 @@ try
 		))
 	);
 	$presentation->setRouteTable(new PhoebiusRouter);
-	
+
 	$page = new UIPage($presentation);
 	$page->render($htmlHeader);
-		
+
 	$doxyGen->setHtmlHeader($htmlHeader->getPath());
-	
-	
+
+
 	$presentation = new UIViewPresentation('parts/footer');
 	$presentation->setRouteTable(new PhoebiusRouter);
-	
+
 	$page = new UIPage($presentation);
 	$htmlFooter = new TempFile();
 	$page->render($htmlFooter);
-	
+
 	$doxyGen->setHtmlFooter($htmlFooter->getPath());
 
+	$doxyGen->addInputPath(
+		PHOEBIUS_SITE_DOXYGEN_PARTS_PATH . '/mainpage.php'
+	);
 	$doxyGen->addInputPath($header->getPath());
 	$doxyGen->addInputPath(PHOEBIUS_SITE_FRAMEWORK_SRC_PATH . '/lib');
+//	$doxyGen->setOptions(array(
+//		'PROJECT_NUMBER' => PHOEBIUS_VERSION
+//	));
 
-	FSUtils::cleanDirectory(PHOEBIUS_SITE_API_PATH);
+//	FSUtils::cleanDirectory(PHOEBIUS_SITE_API_PATH);
 	$doxyGen->make(PHOEBIUS_SITE_API_PATH);
 
 	echo 'Done';

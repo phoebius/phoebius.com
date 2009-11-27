@@ -31,11 +31,12 @@ $this->accept(
   <?php } ?>
 
   <?php if ($this->forDoxy) {?>
-  	<link href="/support/api/tabs.css" rel="stylesheet" type="text/css" />
+  	<link href="/css/tabs.css" rel="stylesheet" type="text/css" />
   <?php }?>
 
   <link href="/css/layout.css" rel="stylesheet" type="text/css" />
   <link href="/css/common.css" rel="stylesheet" type="text/css" />
+
   <?php if ($this->forDoxy) {?>
   	<link href="/css/doxy.css" rel="stylesheet" type="text/css" />
   <?php }?>

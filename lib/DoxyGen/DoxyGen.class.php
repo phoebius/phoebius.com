@@ -33,6 +33,11 @@ class DoxyGen
 	private $inputPaths = array();
 
 	/**
+	 * @var array of string
+	 */
+	private $stripPaths = array();
+
+	/**
 	 * @var TempFile|null
 	 */
 	private $primaryConfig;
@@ -64,6 +69,11 @@ class DoxyGen
 	{
 		$this->inputPaths[] = $inputPath;
 
+		$this->stripPaths[] =
+			is_file($inputPath)
+				? dirname($inputPath)
+				: $inputPath;
+
 		return $this;
 	}
 
@@ -77,6 +87,13 @@ class DoxyGen
 	function setHtmlFooter($filepath)
 	{
 		$this->otherOpts['HTML_FOOTER'] = $filepath;
+
+		return $this;
+	}
+
+	function setOptions(array $options)
+	{
+		$this->otherOpts = array_merge($this->otherOpts, $options);
 
 		return $this;
 	}
@@ -97,14 +114,14 @@ class DoxyGen
 		$doxyConfig = new DoxyConfig;
 		$doxyConfig->add('@INCLUDE', $this->configPath);
 		$doxyConfig->add('OUTPUT_DIRECTORY', $outputPath);
-		$doxyConfig->add('STRIP_FROM_PATH', $this->inputPaths);
+		$doxyConfig->add('STRIP_FROM_PATH', $this->stripPaths);
 		$doxyConfig->add('INPUT', $this->inputPaths);
 
 		foreach ($this->otherOpts as $key => $value) {
 			$doxyConfig->add($key, $value);
 		}
 
-		$this->primaryConfig = new TempFile();
+		$this->primaryConfig = new TempFile(false);
 		$doxyConfig->write($this->primaryConfig);
 
 		return $this->primaryConfig->getPath();

@@ -45,7 +45,7 @@ abstract class BasePhoebiusController extends ActionBasedController
 			$this->clientToken = new ClientToken(
 				$trace->getWebContext()->getServer()->getClientHash(true)
 			);
-			
+
 			$request = $trace->getWebContext()->getRequest();
 
 			try {

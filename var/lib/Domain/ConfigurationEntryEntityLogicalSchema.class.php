@@ -14,7 +14,7 @@
  */
 final class ConfigurationEntryEntityLogicalSchema implements ILogicallySchematic
 {
-	private $propertyNames = array('id','value');
+	private $propertyNames = array('id', 'value');
 
 	/**
 	 * Returns the name of the class representing an entity
@@ -34,27 +34,27 @@ final class ConfigurationEntryEntityLogicalSchema implements ILogicallySchematic
 	}
 
 	/**
-	 * @return IOrmProperty|null
+	 * @return OrmProperty|null
 	 */
 	function getIdentifier()
 	{
-		return new OrmProperty('id',array('id'),new ObjectPropertyType('ConfigurationKey',null,true),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false);
+		return new OrmProperty('id', array('id'), new BoxablePropertyType('ConfigurationKey', new DBType(DBType::VARCHAR, false, null, null, null, false)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, true);
 	}
 
 	/**
-	 * Gets the set of {@link IOrmProperty}
+	 * Gets the set of {@link OrmProperty}
 	 * @return array
 	 */
 	function getProperties()
 	{
 		return array(
-			'id' => new OrmProperty('id',array('id'),new ObjectPropertyType('ConfigurationKey',null,true),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false),
-			'value' => new OrmProperty('value',array('value'),new VarcharPropertyType(null,null,false),new OrmPropertyVisibility(OrmPropertyVisibility::FULL),false)
+			'id' => $this->getIdentifier(),
+			'value' => new OrmProperty('value', array('value'), new FundamentalPropertyType(new DBType(DBType::VARCHAR, false, null, null, null, false)), new OrmPropertyVisibility(OrmPropertyVisibility::FULL), false, false)
 		);
 	}
 
 	/**
-	 * @return IOrmProperty
+	 * @return OrmProperty
 	 */
 	function getProperty($name)
 	{

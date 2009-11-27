@@ -88,13 +88,13 @@ class PhoebiusRouter extends ChainedRouter
 			'/admin:controller/',
 			array('action' => 'login')
 		);
-		
+
 		$this->route(
 			'index',
 			'/',
 			array('controller' => 'Blog', 'action' => 'showIndex')
 		);
-		
+
 		$fallbackRoute = new Route(
 			$this->getDefaultDispatcher(),
 			ParameterImportRule::multiple(array(
@@ -102,7 +102,7 @@ class PhoebiusRouter extends ChainedRouter
 				'action' => '404'
 			))
 		);
-		
+
 		$this->setFallbackRoute($fallbackRoute);
 	}
 }

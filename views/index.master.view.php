@@ -20,7 +20,7 @@ $this->setMaster(
 	$this->model
 		->spawn()
 		->append(array(
-			'title' => 'Phoebius framework',
+			'title' => 'Phoebius Framework: comprehensive ORM and MVC over PHP',
 		))
 );
 

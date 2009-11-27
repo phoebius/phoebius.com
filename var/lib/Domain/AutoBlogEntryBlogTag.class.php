@@ -17,12 +17,12 @@ abstract class AutoBlogEntryBlogTag extends OrmEntity implements IOrmRelated, ID
 	/**
 	 * @var BlogEntry
 	 */
-	private $BlogEntry;
+	protected $BlogEntry;
 
 	/**
 	 * @var BlogEntryTag
 	 */
-	private $BlogEntryTag;
+	protected $BlogEntryTag;
 
 	/**
 	 * @return BlogEntryBlogTagEntity
@@ -49,9 +49,16 @@ abstract class AutoBlogEntryBlogTag extends OrmEntity implements IOrmRelated, ID
 	}
 
 	/**
-	 * @param BlogEntry BlogEntry
-	 * @throws ArgumentException
-	 * @return BlogEntryBlogTag an object itself
+	 * @return EntityQuery
+	 */
+	static function query()
+	{
+		return new EntityQuery(self::orm());
+	}
+
+	/**
+	 * @param BlogEntry $BlogEntry
+	 * @return BlogEntryBlogTag itself
 	 */
 	function setBlogEntry(BlogEntry $BlogEntry)
 	{
@@ -65,13 +72,16 @@ abstract class AutoBlogEntryBlogTag extends OrmEntity implements IOrmRelated, ID
 	 */
 	function getBlogEntry()
 	{
+//		if ($this->BlogEntry) { // thats is what called lazy fetching
+//			$this->BlogEntry->fetch();
+//		}
+
 		return $this->BlogEntry;
 	}
 
 	/**
-	 * @param BlogEntryTag BlogEntryTag
-	 * @throws ArgumentException
-	 * @return BlogEntryBlogTag an object itself
+	 * @param BlogEntryTag $BlogEntryTag
+	 * @return BlogEntryBlogTag itself
 	 */
 	function setBlogEntryTag(BlogEntryTag $BlogEntryTag)
 	{
@@ -85,6 +95,10 @@ abstract class AutoBlogEntryBlogTag extends OrmEntity implements IOrmRelated, ID
 	 */
 	function getBlogEntryTag()
 	{
+//		if ($this->BlogEntryTag) { // thats is what called lazy fetching
+//			$this->BlogEntryTag->fetch();
+//		}
+
 		return $this->BlogEntryTag;
 	}
 }

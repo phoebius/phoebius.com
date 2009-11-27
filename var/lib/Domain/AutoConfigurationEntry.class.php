@@ -17,12 +17,12 @@ abstract class AutoConfigurationEntry extends IdentifiableOrmEntity implements I
 	/**
 	 * @var ConfigurationKey
 	 */
-	private $id;
+	protected $id;
 
 	/**
-	 * @var string
+	 * @var scalar
 	 */
-	private $value;
+	protected $value;
 
 	/**
 	 * @return ConfigurationEntryEntity
@@ -49,21 +49,24 @@ abstract class AutoConfigurationEntry extends IdentifiableOrmEntity implements I
 	}
 
 	/**
-	 * @param ConfigurationKey id
-	 * @throws ArgumentException
-	 * @return ConfigurationEntry an object itself
+	 * @return EntityQuery
 	 */
-	function setId(ConfigurationKey $id = null)
+	static function query()
+	{
+		return new EntityQuery(self::orm());
+	}
+
+	/**
+	 * @param ConfigurationKey $id
+	 * @return ConfigurationEntry itself
+	 */
+	function setId(ConfigurationKey $id)
 	{
 		$this->id = $id;
 
 		return $this;
 	}
 
-	/**
-	 * @internal
-	 * @return ConfigurationEntry an object itself
-	 */
 	function _setId($id)
 	{
 		$this->setId($id);
@@ -72,36 +75,31 @@ abstract class AutoConfigurationEntry extends IdentifiableOrmEntity implements I
 	}
 
 	/**
-	 * @return ConfigurationKey|null
+	 * @return ConfigurationKey
 	 */
 	function getId()
 	{
 		return $this->id;
 	}
 
-	/**
-	 * @internal
-	 * @return ConfigurationKey|null
-	 */
 	function _getId()
 	{
 		return $this->getId();
 	}
 
 	/**
-	 * @param string value
-	 * @throws ArgumentException
-	 * @return ConfigurationEntry an object itself
+	 * @param scalar $value
+	 * @return ConfigurationEntry itself
 	 */
-	function setValue(/* String */ $value)
+	function setValue($value)
 	{
-		$this->value = String::cast($value)->getValue();
+		$this->value = $value;
 
 		return $this;
 	}
 
 	/**
-	 * @return string
+	 * @return mixed
 	 */
 	function getValue()
 	{
