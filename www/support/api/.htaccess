@@ -1,0 +1,17 @@
+##
+## 
+## Phoebius Framework
+##
+## **********************************************************************************************
+##
+## Copyright (c) 2009 phoebius.org
+##
+## All rights reserved.
+##
+##
+
+# support old-style urls too
+RewriteEngine On
+RewriteCond %{HTTP_HOST} (.*)
+RewriteRule ^[a-zA-Z0-9]{2}/[a-zA-Z0-9]{3}/(.*)$ http://%1/support/api/$1 [R=301,L]
+
