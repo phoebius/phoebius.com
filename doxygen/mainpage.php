@@ -17,7 +17,7 @@
  ************************************************************************************************/
 
 /**
- * @mainpage The API Browser
+ * @mainpage API Browser
  *
  * Phoebius consists of dozens of highly-stratified packages implementing various functionality,
  * which is applicable both for application development and for internal support of Phoebius'

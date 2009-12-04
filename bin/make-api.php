@@ -33,7 +33,7 @@ try
 		'config.php';
 
 	$rootDoxyGroup =
-		XmlDoxyGroupBuilder::create(PHOEBIUS_SITE_DOCS_SRC_PATH . '/xml/other/groups.xml')
+		XmlDoxyGroupBuilder::create(PHOEBIUS_BASE_ROOT . '/doc/ns/groups.xml')
 			->build();
 
 	$header = new TempFile;
@@ -48,7 +48,7 @@ try
 
 	$presentation = new UIViewPresentation('doxy/header');
 	$presentation->setModel(
-		Model::create(array(
+		new Model(array(
 			'activeMenuItem' =>'Support',
 			'breadScrumbs' => array(
 				new ViewLink('Support', '/support/'),

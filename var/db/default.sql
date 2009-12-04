@@ -1,6 +1,6 @@
 --
--- Phoebius Framework Autogenerator
--- Generated at 27.11.09 14:25 for PgSql
+-- Phoebius Framework v.1.0.0
+-- Generated at 04.12.09 10:00 for PgSql
 --
 
 CREATE SEQUENCE "blog_entry_id_sq";
@@ -9,7 +9,7 @@ CREATE TABLE "blog_entry"(
 	"id" int4 NOT NULL DEFAULT nextval ( 'blog_entry_id_sq' ),
 	"title" character varying NOT NULL,
 	"text" character varying NOT NULL,
-	"pub_time" datetime NOT NULL,
+	"pub_time" timestamp NOT NULL,
 	"pub_date" date NOT NULL,
 	"rest_id" character varying NOT NULL,
 	PRIMARY KEY ("id")

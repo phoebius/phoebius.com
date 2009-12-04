@@ -49,9 +49,7 @@ class BlogController extends BasePhoebiusController
 		$blogEntries =
 			EntityQuery::create(BlogEntry::orm())
 				->where(
-					Expression::eq(
-						'pubDate', $date
-					)
+					Expression::eq('pubDate', $date)
 				)
 				->orderBy(OrderBy::desc('pubDate'))
 				->getList();
@@ -73,12 +71,8 @@ class BlogController extends BasePhoebiusController
 				EntityQuery::create(BlogEntry::orm())
 					->where(
 						Expression::andChain()
-								->add(
-									Expression::eq('pubDate', $date)
-								)
-								->add(
-									Expression::eq('restId', $entryRestId->getValue())
-								)
+							->add(Expression::eq('pubDate', $date))
+							->add(Expression::eq('restId', $entryRestId->getValue()))
 					)
 					->getEntity();
 		}
@@ -106,9 +100,7 @@ class BlogController extends BasePhoebiusController
 				->setOffset($offset)
 				->getList();
 
-		$count =
-			EntityQuery::create(BlogEntry::orm())
-				->getCount();
+		$count = BlogEntry::query()->getCount();
 
 		$this->getModel()->append(array(
 			'entries' => $blogEntries,

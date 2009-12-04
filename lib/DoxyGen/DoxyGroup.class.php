@@ -135,7 +135,7 @@ class DoxyGroup
 	}
 
 	/**
-	 * @return Namespace an object itself
+	 * @return Namespace itself
 	 */
 	function addInner(DoxyGroup $doxyGroup)
 	{

@@ -13,7 +13,7 @@
 
 $this->setMaster(
 	'content.master',
-	Model::create(array(
+	new Model(array(
 		'title' => 'Phoebius administration',
 		'breadScrumbs' => array(
 			new ViewLink('Admin', '/admin/')

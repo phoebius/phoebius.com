@@ -59,10 +59,10 @@ final class SiteDocIndexRootItem extends SiteDocIndexItem
 		if (!is_dir(dirname($filepath))) {
 			mkdir(dirname($filepath), null, true);
 		}
-		
+
 		$presentation = new UIViewPresentation('content');
 		$presentation->setModel(
-			Model::create(array(
+			new Model(array(
 				'siteDoc' => $child->getDoc(),
 				'siteDocIndexItem' => $child,
 				'activeMenuItem' => $child->getSitePart(),

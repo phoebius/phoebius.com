@@ -19,7 +19,7 @@ class AdminController extends BaseSiteAdminController
 	function action_login($email = null, $password = null)
 	{
 		if ($email && $password && $this->tryLogIn($email, $password)) {
-			return new RedirectResult(new HttpUrl('/'));
+			return $this->redirect('index');
 		}
 
 		return 'admin/login';
@@ -27,20 +27,20 @@ class AdminController extends BaseSiteAdminController
 
 	function action_deleteEntry(Integer $id)
 	{
-		BlogEntry::dao()->drop($id->getValue());
+		BlogEntry::dao()->dropEntityById($id->getValue());
 
-		return new RedirectResult(new HttpUrl('/'));
+		return $this->redirect('index');
 	}
 
 	function action_editEntry(Integer $id, array $entryData = null)
 	{
-		$entry = BlogEntry::dao()->getById($id->getValue());
-		
+		$entry = BlogEntry::dao()->getEntityById($id->getValue());
+
 		if (is_array($entryData)) {
 			$this->fillEntry($entryData, $entry);
-			BlogEntry::dao()->save($entry);
+			$entry->save();
 
-			return new RedirectResult(new HttpUrl('/blog/' . $entry->toUrl()));
+			return $this->redirect('adminEditEntry', array('id' => $entry->getId()));
 		}
 
 		$this->getModel()->append(
@@ -56,9 +56,9 @@ class AdminController extends BaseSiteAdminController
 	{
 		if (is_array($entryData)) {
 			$entry = $this->fillEntry($entryData, new BlogEntry);
-			BlogEntry::dao()->save($entry);
+			$entry->save();
 
-			return new RedirectResult(new HttpUrl('/admin/entry/'));
+			return $this->redirect('adminNewEntry');
 		}
 
 		$this->getModel()->append(
@@ -77,7 +77,10 @@ class AdminController extends BaseSiteAdminController
 			->setText($entryData['text'])
 			->setRestId($entryData['restId'])
 			->setPubDate(new Date($entryData['pubDate']))
-			->setPubTime(Timestamp::create($entryData['pubDate'])->setTime(Time::now()));
+			->setPubTime(
+				Timestamp::create($entryData['pubDate'])
+					->spawn(Time::now()->toFormattedString())
+				);
 
 		return $entry;
 	}
