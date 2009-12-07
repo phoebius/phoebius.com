@@ -57,7 +57,7 @@ $this->setMaster(
                <td>
                   <div class="button">
                     <div class="rounded l"></div>
-                    <div class="label"><a href="/src/phoebius-framework-v<?=$this->release->getVersion()?>.tar.gz">Download now</a></div>
+                    <div class="label"><a href="/src/phoebius-v<?=$this->release->getVersion()?>.tar.gz">Download now</a></div>
                     <div class="rounded r"></div>
                   </div>
                </td>
