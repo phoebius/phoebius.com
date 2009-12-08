@@ -128,7 +128,7 @@ class SiteDocContentBlockRenderer
 	{
 		return
 			'<a href="' . $node->getAttribute('to') . '">'
-			. $this->renderInnerNodes($node)
+			. trim($this->renderInnerNodes($node))
 			. '</a>';
 	}
 

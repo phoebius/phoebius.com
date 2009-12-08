@@ -46,6 +46,10 @@ final class SiteDocIndexRootItem extends SiteDocIndexItem
 			if ($child instanceof SiteDocIndexXmlItem) {
 				$this->buildChild($child);
 			}
+
+			if ($child->hasChildren()) {
+				$this->traverse($child);
+			}
 		}
 	}
 
@@ -61,22 +65,28 @@ final class SiteDocIndexRootItem extends SiteDocIndexItem
 		}
 
 		$presentation = new UIViewPresentation('content');
+		$breadScrumbs = array();
+
+		// traverse over parents
+		$_ = $child;
+		while (($_ = $_->getParent())) {
+			if ($_->getName()) {
+				array_unshift($breadScrumbs, new ViewLink($_->getName(), $_->getLink()));
+			}
+		}
+
 		$presentation->setModel(
 			new Model(array(
 				'siteDoc' => $child->getDoc(),
 				'siteDocIndexItem' => $child,
 				'activeMenuItem' => $child->getSitePart(),
-				'breadScrumbs' => array(
-					new ViewLink('Support', '/support/'),
-				),
+				'breadScrumbs' => $breadScrumbs,
 			))
 		);
 		$presentation->setRouteTable(new PhoebiusRouter);
 
 		$page = new UIPage($presentation);
 		$page->render(new FileWriteStream($filepath));
-
-		$this->traverse($child);
 	}
 }
 

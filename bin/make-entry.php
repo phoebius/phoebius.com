@@ -39,23 +39,12 @@ try
 	if (!is_file($argv[1]))
 		die ('usage: php make-entry.php /path-to-xml-doc.xml');
 
-	$newPath = preg_replace('/\.[a-zA-Z]$/', '.html', $docPath);
-	if ($newPath == $docPath) {
-		$newPath .= '.new';
-	}
-	$out = new FileWriteStream($newPath);
-
 	$siteDocBuilder = new XmlSiteDocBuilder($docPath);
 	$siteDoc = $siteDocBuilder->build();
 	$renderer = new SiteDocContentBlockRenderer();
 	foreach ($siteDoc->getChapters() as $chapter) {
-		$out->write(
-			$chapter->toHtml($renderer)
-		);
+		echo $chapter->toHtml($renderer);
 	}
-
-
-	echo 'Done';
 }
 catch (ExecutionContextException $e)
 {

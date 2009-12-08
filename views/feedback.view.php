@@ -18,7 +18,7 @@ $this->setMaster(
 	new Model(array(
 		'title' => 'Phoebius feedback',
 		'breadScrumbs' => array(
-			new ViewLink('Support', '/support/')
+			new ViewLink('Support Page', '/support/')
 		),
 	))
 );
