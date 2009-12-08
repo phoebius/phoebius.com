@@ -112,7 +112,7 @@ class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 	private function absolutizeLocation($location)
 	{
 		return
-			($location{0} == '/')
+			($location && $location{0} == '/')
 				? $location
 				: $this->prefix . '/' . $location;
 	}
@@ -120,7 +120,7 @@ class XmlSiteDocIndexBuilder extends SiteDocIndexBuilder
 	private function absolutizeXmlPath($xml)
 	{
 		return
-			($xml{0} == '/')
+			($xml && $xml{0} == '/')
 				? $this->xmlRoot . $xml
 				: dirname($this->xmlFilename) . '/' . $xml;
 	}
