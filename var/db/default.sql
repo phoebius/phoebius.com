@@ -1,6 +1,6 @@
 --
 -- Phoebius Framework v.1.0.0
--- Generated at 04.12.09 10:00 for PgSql
+-- Generated at 18.12.09 09:41 for PgSql
 --
 
 CREATE SEQUENCE "blog_entry_id_sq";
