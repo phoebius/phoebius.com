@@ -16,6 +16,16 @@
  */
 class AdminController extends BaseSiteAdminController
 {
+
+	protected function checkCredentials(Trace $trace)
+	{
+		parent::checkCredentials($trace);
+
+		if (!$this->isAdminAuthorized()) {
+			$trace[self::PARAMETER_ACTION] = 'login';
+		}
+	}
+
 	function action_login($email = null, $password = null)
 	{
 		if ($email && $password && $this->tryLogIn($email, $password)) {

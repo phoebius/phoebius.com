@@ -15,7 +15,23 @@ Feel free to modify and extend it.
  */
 class ConfigurationEntry extends AutoConfigurationEntry
 {
+	/**
+	 * @return ConfigurationEntry
+	 */
+	static function getEntry(ConfigurationKey $ck)
+	{
+		try {
+			$entry = self::dao()->getEntityById($ck);
+		}
+		catch (OrmEntityNotFoundException $e) {
+			$entry = new self;
+			$entry->setId($ck);
+			$entry->setValue('');
+			$entry->save();
+		}
 
+		return $entry;
+	}
 }
 
 ?>
