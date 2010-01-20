@@ -1,6 +1,6 @@
 --
--- Phoebius Framework v.1.0.0
--- Generated at 18.12.09 09:41 for PgSql
+-- Phoebius Framework v.1.0.1
+-- Generated at 20.01.10 09:33 for PgSql
 --
 
 CREATE SEQUENCE "blog_entry_id_sq";
@@ -34,6 +34,19 @@ CREATE TABLE "configuration_entry"(
 	"value" character varying NOT NULL,
 	PRIMARY KEY ("id")
 );
+
+CREATE SEQUENCE "phoebius_release_id_sq";
+
+CREATE TABLE "phoebius_release"(
+	"id" int4 NOT NULL DEFAULT nextval ( 'phoebius_release_id_sq' ),
+	"date" date NOT NULL,
+	"version" character varying NOT NULL,
+	"description" character varying NOT NULL,
+	"link" character varying NOT NULL,
+	PRIMARY KEY ("id")
+);
+
+ALTER SEQUENCE "phoebius_release_id_sq" OWNED BY "phoebius_release"."id";
 
 CREATE TABLE "blog_entry_blog_tag"(
 	"blog_entry" int4 NOT NULL,

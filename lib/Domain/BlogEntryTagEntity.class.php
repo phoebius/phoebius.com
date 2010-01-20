@@ -1,12 +1,11 @@
 <?php
 /* ***********************************************************************************************
  *
- * Phoebius Framework v.1.0.0
+ * Phoebius Framework v.1.0.1
  *
  * **********************************************************************************************
  *
- * This file is public, and won't be regenerated explicitly.
-Feel free to modify and extend it.
+ * This file is public, and won't be regenerated explicitly. Feel free to modify and extend it.
  *
  ************************************************************************************************/
 

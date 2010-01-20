@@ -1,12 +1,11 @@
 <?php
 /* ***********************************************************************************************
  *
- * Phoebius Framework v.1.0.0
+ * Phoebius Framework v.1.0.1
  *
  * **********************************************************************************************
  *
- * This file is public, and won't be regenerated explicitly.
-Feel free to modify and extend it.
+ * This file is public, and won't be regenerated explicitly. Feel free to modify and extend it.
  *
  ************************************************************************************************/
 
@@ -15,23 +14,7 @@ Feel free to modify and extend it.
  */
 class ConfigurationEntry extends AutoConfigurationEntry
 {
-	/**
-	 * @return ConfigurationEntry
-	 */
-	static function getEntry(ConfigurationKey $ck)
-	{
-		try {
-			$entry = self::dao()->getEntityById($ck);
-		}
-		catch (OrmEntityNotFoundException $e) {
-			$entry = new self;
-			$entry->setId($ck);
-			$entry->setValue('');
-			$entry->save();
-		}
 
-		return $entry;
-	}
 }
 
 ?>

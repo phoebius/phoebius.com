@@ -22,10 +22,10 @@ Autoloader::getInstance()->clearCache();
 DBPool::add(
 	'default',
 	PgSqlDB::create()
-		->setDBName('phoebius-site')
+		->setDBName('db_phoebius_site')
 		->setEncoding('utf8')
-		->setUser('postgres')
-		->setPassword('postgres')
+		->setUser('phoebius')
+		->setPassword('42')
 );
 
 ?>

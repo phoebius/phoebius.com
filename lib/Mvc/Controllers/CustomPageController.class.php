@@ -5,7 +5,7 @@
  *
  * **********************************************************************************************
  *
- * Copyright (c) 2009 phoebius.org
+ * Copyright (c) 2009 Scand Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under the terms
  * of the GNU Lesser General Public License as published by the Free Software Foundation;
@@ -24,17 +24,11 @@ class CustomPageController extends BasePhoebiusController
 {
 	function action_404()
 	{
-		//Header($this->getContext()->getAppContext()->getRequest()->getProtocol() . ' Not Found');
+		$this->getTrace()->getWebContext()->getResponse()->setStatus(
+			new HttpStatus(HttpStatus::CODE_404)
+		);
 
-		$builder = XmlSiteDocBuilder::create(PHOEBIUS_SITE_DOCS_SRC_PATH . '/xml/site/404.xml');
-		$this->getModel()->append(array(
-			'siteDoc' => $builder->build(),
-			'breadScrumbs' => array(
-				new ViewLink('404', '/404/'),
-			),
-		));
-
-		return 'content';
+		return '404';
 	}
 
 	function action_search(String $query = null)
@@ -68,7 +62,7 @@ class CustomPageController extends BasePhoebiusController
 					"phoebius.org feedback from {$_REQUEST['name']}",
 					$_REQUEST['text'],
 					join("\r\n", array(
-						'From: "Phoebius.org feedback" <noreply@phoebius.org>',
+						'From: "Phoebius.org feedback" <robot@phoebius.org>',
 						'Reply-To: "' .$_REQUEST['name']. '" <' . $_REQUEST['email'] . '>'
 					))
 				);

@@ -5,9 +5,14 @@
  *
  * **********************************************************************************************
  *
- * Copyright (c) 2009 phoebius.org
+ * Copyright (c) 2009 Scand Ltd.
  *
- * All rights reserved.
+ * This program is free software; you can redistribute it and/or modify it under the terms
+ * of the GNU Lesser General Public License as published by the Free Software Foundation;
+ * either version 3 of the License, or (at your option) any later version.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
@@ -49,7 +54,7 @@ $this->setMaster(
               <p>Your opinion is very valuable for us.</p>
               <p>We do our best to provide a comprehensive development toolset, so we are open to
               any type of feedback, and are ready to participate in discussion of our product.</p>
-              <p>Send your questions, proposals and ideas to <a href="mailto:feedback@phoebius.org">feedback@phoebius.org</a>, or submit the following
+              <p>Send your questions, proposals and ideas to <a href="mailto:phoebius@scand.com">phoebius@scand.com</a>, or submit the following
               form:</p>
              <form method="post" action="/feedback/">
               	<p>

@@ -5,9 +5,14 @@
  *
  * **********************************************************************************************
  *
- * Copyright (c) 2009 phoebius.org
+ * Copyright (c) 2009 Scand Ltd.
  *
- * All rights reserved.
+ * This program is free software; you can redistribute it and/or modify it under the terms
+ * of the GNU Lesser General Public License as published by the Free Software Foundation;
+ * either version 3 of the License, or (at your option) any later version.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
@@ -65,8 +70,8 @@ $this->setMaster(
            </table>
         </li>
         <li class="changes">
-          <?=SiteDocContentBlockRenderer::create()->renderParagraph($this->release->getAbout())?>
-          <div class="more"><a href="<?=$this->release->getPage()?>">Learn more</a>&nbsp;<span class="arr">&rarr;</span></div>
+          <p><?=$this->release->getDescription()?></p>
+          <div class="more"><a href="<?=$this->release->getLink()?>">Learn more</a>&nbsp;<span class="arr">&rarr;</span></div>
         </li>
       </ul>
 
