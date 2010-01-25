@@ -88,10 +88,10 @@ $this->setMaster(
               </li>
               <li>
                 <h3><a href="/support/">End-user support</a></h3>
-                <p><b>See</b> the <a href="/support/">documentation</a>, <a href="/support/manual/">manual</a> and the <a href="/support/api/">API</a>.</p>
+                <p><b>See</b> the <a href="/support/manual/">reference manual</a> and the <a href="/support/api/">API documentation</a>.</p>
               </li>
               <li>
-                <h3><a href="/support/kb/">Possibilities Of Scaling</a></h3>
+                <h3><a href="/support/manual/advanced/">Possibilities Of Scaling</a></h3>
                 <p><b>Implement</b> custom logic and satisfy the needs by extending the ready-to-use toolset.</p>
               </li>
               <li>

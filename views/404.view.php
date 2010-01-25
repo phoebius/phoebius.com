@@ -16,28 +16,41 @@
  *
  ************************************************************************************************/
 
-?><div class="footer">
-  <div class="container">
-    <p>
-     All questions and proposals<br />
-     are welcomed at <a href="mailto:phoebius@scand.com">phoebius@scand.com</a>.
-    </p>
-   <div class="copy">
-    <p>
-     Copyright &copy; 2010 Scand Ltd.<br />
-     All rights reserved.
-    </p>
-   </div>
+$this->setMaster(
+	'content.master',
+	new Model(array(
+		'title' => 'Page Not Found',
+	))
+);
+
+?>
+
+<!--Content-->
+  <div class="content">
+    <div class="container column">
+
+      <div class="columns">
+         <!--Left panel-->
+         <div class="left">
+            <div class="container">
+            </div>
+         </div>
+         <!--Left panel-->
+         <!--Main content-->
+         <div class="main">
+            <div class="container">
+              <h1>Page Not Found</h1>
+
+              <div class="article">
+              	Sorry but the page you are looking for does not exist.
+              </div>
+
+         </div>
+         <!--Main content-->
+      </div>
+      <div class="cleaner"></div>
+
+    </div>
   </div>
-</div>
+  <!--Content-->
 
-<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-11426814-1");
-pageTracker._trackPageview();
-} catch(err) {}
-</script>
-
-</body>
-</html>
