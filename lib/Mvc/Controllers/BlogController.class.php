@@ -29,7 +29,7 @@ class BlogController extends BasePhoebiusController
 
 		$release =
 			PhoebiusRelease::query()
-				->orderBy(new OrderBy('date'))
+				->orderBy(OrderBy::desc('date'))
 				->setLimit(1)
 				->getEntity();
 
