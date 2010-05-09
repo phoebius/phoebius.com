@@ -24,86 +24,78 @@ define('APP_ROOT', join(
 	)
 );
 
-require ( APP_ROOT . '/phoebius-src/etc/app.init.php' );
+require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
 require ( APP_ROOT . '/etc/config.php' );
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-try
-{
-	require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+require
+	APP_ROOT . DIRECTORY_SEPARATOR .
+	'cfg' . DIRECTORY_SEPARATOR .
+	APP_SLOT . DIRECTORY_SEPARATOR .
+	'config.php';
 
-	$rootDoxyGroup =
-		XmlDoxyGroupBuilder::create(PHOEBIUS_BASE_ROOT . '/doc/ns/groups.xml')
-			->build();
+if (!isset($argv[1]))
+	die ('usage: php make-api.php phoebius-src/');
 
-	$header = new TempFile;
-	DoxyHeaderWriter::create($rootDoxyGroup)
-		->write($header);
+$frameworkPath = realpath($argv[1]);
+if (!is_directory($argv[1]))
+	die ('usage: php make-api.php phoebius-src/');
 
-	$doxyGen = new DoxyGen(
-		PHOEBIUS_SITE_DOXYGEN_PARTS_PATH . '/doxygen.conf'
-	);
+$rootDoxyGroup =
+	XmlDoxyGroupBuilder::create($frameworkPath . '/doc/ns/groups.xml')
+		->build();
 
-	$htmlHeader = new TempFile();
+$header = new TempFile;
+DoxyHeaderWriter::create($rootDoxyGroup)
+	->write($header);
 
-	$presentation = new UIViewPresentation('doxy/header');
-	$presentation->setModel(
-		new Model(array(
-			'activeMenuItem' =>'Support',
-			'breadScrumbs' => array(
-				new ViewLink('Support', '/support/'),
-				new ViewLink('API', '/support/api/'),
-			),
-		'forDoxy' => true
-		))
-	);
-	$presentation->setRouteTable(new PhoebiusRouter);
+$doxyGen = new DoxyGen(
+	PHOEBIUS_SITE_DOXYGEN_PARTS_PATH . '/doxygen.conf'
+);
 
-	$page = new UIPage($presentation);
-	$page->render($htmlHeader);
+$htmlHeader = new TempFile();
 
-	$doxyGen->setHtmlHeader($htmlHeader->getPath());
+$presentation = new UIViewPresentation('doxy/header');
+$presentation->setModel(
+	new Model(array(
+		'activeMenuItem' =>'Support',
+		'breadScrumbs' => array(
+			new ViewLink('Support', '/support/'),
+			new ViewLink('API', '/support/api/'),
+		),
+	'forDoxy' => true
+	))
+);
+$presentation->setRouteTable(new PhoebiusRouter);
+
+$page = new UIPage($presentation);
+$page->render($htmlHeader);
+
+$doxyGen->setHtmlHeader($htmlHeader->getPath());
 
 
-	$presentation = new UIViewPresentation('parts/footer');
-	$presentation->setRouteTable(new PhoebiusRouter);
+$presentation = new UIViewPresentation('parts/footer');
+$presentation->setRouteTable(new PhoebiusRouter);
 
-	$page = new UIPage($presentation);
-	$htmlFooter = new TempFile();
-	$page->render($htmlFooter);
+$page = new UIPage($presentation);
+$htmlFooter = new TempFile();
+$page->render($htmlFooter);
 
-	$doxyGen->setHtmlFooter($htmlFooter->getPath());
+$doxyGen->setHtmlFooter($htmlFooter->getPath());
 
-	$doxyGen->addInputPath(
-		PHOEBIUS_SITE_DOXYGEN_PARTS_PATH . '/mainpage.php'
-	);
-	$doxyGen->addInputPath($header->getPath());
-	$doxyGen->addInputPath(PHOEBIUS_SITE_FRAMEWORK_SRC_PATH . '/lib');
+$doxyGen->addInputPath(
+	PHOEBIUS_SITE_DOXYGEN_PARTS_PATH . '/mainpage.php'
+);
+$doxyGen->addInputPath($header->getPath());
+$doxyGen->addInputPath($frameworkPath . '/lib');
 //	$doxyGen->setOptions(array(
 //		'PROJECT_NUMBER' => PHOEBIUS_VERSION
 //	));
 
 //	FSUtils::cleanDirectory(PHOEBIUS_SITE_API_PATH);
-	$doxyGen->make(PHOEBIUS_SITE_API_PATH);
+$doxyGen->make(PHOEBIUS_SITE_API_PATH);
 
-	echo 'Done';
-}
-catch (ExecutionContextException $e)
-{
-	echo '<pre>', $e->getTraceAsString();
-	throw $e;
-}
-catch (CompilationContextException $e)
-{
-	// this could happen at development and test hostConfigurations only
-	// and never in production system
-	echo '<pre>', $e->getTraceAsString();
-	throw $e;
-}
+echo 'Done';
 
 ?>

@@ -29,39 +29,24 @@ require ( APP_ROOT . '/etc/config.php' );
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-try
-{
-	require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+require
+	APP_ROOT . DIRECTORY_SEPARATOR .
+	'cfg' . DIRECTORY_SEPARATOR .
+	APP_SLOT . DIRECTORY_SEPARATOR .
+	'config.php';
 
-	if (!isset($argv[1]))
-		die ('usage: php make-entry.php /path-to-xml-doc.xml');
+if (!isset($argv[1]))
+	die ('usage: php make-entry.php /path-to-xml-doc.xml');
 
-	$docPath = realpath($argv[1]);
-	if (!is_file($argv[1]))
-		die ('usage: php make-entry.php /path-to-xml-doc.xml');
+$docPath = realpath($argv[1]);
+if (!is_file($argv[1]))
+	die ('usage: php make-entry.php /path-to-xml-doc.xml');
 
-	$siteDocBuilder = new XmlSiteDocBuilder($docPath);
-	$siteDoc = $siteDocBuilder->build();
-	$renderer = new SiteDocContentBlockRenderer();
-	foreach ($siteDoc->getChapters() as $chapter) {
-		echo $chapter->toHtml($renderer);
-	}
-}
-catch (ExecutionContextException $e)
-{
-	echo '<pre>', $e->getTraceAsString();
-	throw $e;
-}
-catch (CompilationContextException $e)
-{
-	// this could happen at development and test hostConfigurations only
-	// and never in production system
-	echo '<pre>', $e->getTraceAsString();
-	throw $e;
+$siteDocBuilder = new XmlSiteDocBuilder($docPath);
+$siteDoc = $siteDocBuilder->build();
+$renderer = new SiteDocContentBlockRenderer();
+foreach ($siteDoc->getChapters() as $chapter) {
+	echo $chapter->toHtml($renderer);
 }
 
 ?>
