@@ -12,30 +12,26 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
+require dirname(__FILE__) . '/appless.init.php';
+
+// This is needed because ZendPhpUnit launcher does not check the indexes of
+// arrays it accesses to :( any access to unexistant index throws an exception
+// TODO 1: add halt/unhalt() method pair to avoid direct register()/unregister() calls
+//         (such calls are expensive)
+// TODO 2: add "kernel" mode - an abstraction over Exceptionizer::halt()/unhalt()
+Exceptionizer::getInstance()->unregister();
+
+AllTests::$testPaths = array(
+	PHOEBIUS_BASE_ROOT . DIRECTORY_SEPARATOR . 'tests'
 );
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+set_include_path(
+	PHOEBIUS_BASE_ROOT . DIRECTORY_SEPARATOR . 'tests'
+	. PATH_SEPARATOR . get_include_path()
+);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
-
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

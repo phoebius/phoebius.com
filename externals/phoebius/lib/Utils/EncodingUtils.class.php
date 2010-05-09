@@ -12,30 +12,27 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Encoding utilities.
+ *
+ * @ingroup Utils
+ */
+final class EncodingUtils extends StaticClass
+{
+	/**
+	 * Whether string is in UTF-8
+	 * @param string $str
+	 * @return boolean
+	 */
+	static function isUtf8($str)
+	{
+		// ^(?:[\x00-\x7f]|[\xc0-\xdf][\x80-\xbf]|[\xe0​-\xef][\x80-\xbf][\x80-\xbf]|[\xf0-\xf7][\x80-\xbf​][\x80-\xbf][\x80-\xbf]+)$
+		return $str === mb_convert_encoding(mb_convert_encoding($str, "UTF-32", "UTF-8"), "UTF-8", "UTF-32");
+	}
+}
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
-
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

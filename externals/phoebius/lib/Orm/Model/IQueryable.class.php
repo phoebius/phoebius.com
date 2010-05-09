@@ -12,30 +12,30 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Defines an ORM-related object that can be accessed thru the DAO
+ *
+ * @ingroup Orm_Model
+ */
+interface IQueryable extends IMappable
+{
+	/**
+	 * Gets the data access object
+	 *
+	 * @return IOrmEntityAccessor
+	 */
+	function getDao();
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * Gets the physical representation of the entity
+	 *
+	 * @return IPhysicallySchematic
+	 */
+	function getPhysicalSchema();
+}
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
-
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

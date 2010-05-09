@@ -12,30 +12,44 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Represents a database identifier. This identifier would be correctly quoted while translating
+ * to SQL
+ *
+ * @ingroup Dal_DB_Sql
+ */
+final class SqlIdentifier implements ISqlValueExpression
+{
+	private $id;
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * @param string $id textual representation of the identifier
+	 */
+	function __construct($id)
+	{
+		Assert::isScalar($id);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+		$this->id = $id;
+	}
 
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+	/**
+	 * Gets the textual representation of the database identifier
+	 *
+	 * @return string
+	 */
+	function getId()
+	{
+		return $this->id;
+	}
 
-$application = new StandaloneSiteApplication();
-$application->run();
-	
+	function toDialectString(IDialect $dialect)
+	{
+		return $dialect->quoteIdentifier($this->id);
+	}
+}
+
 ?>

@@ -12,30 +12,32 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * @ingroup Core_Exceptions
+ */
+class ArgumentTypeException extends ArgumentException
+{
+	/**
+	 * @var string
+	 */
+	private $expectedType;
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * @param string $argumentName
+	 * @param string $message
+	 */
+	function __construct($argumentName, $expectedType, $message = 'unexpected argument type')
+	{
+		Assert::isScalar($expectedType);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+		parent::__construct($argumentName, $expectedType, $message);
 
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+		$this->expectedType = $expectedType;
+	}
+}
 
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

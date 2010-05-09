@@ -12,30 +12,31 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Represents a PHP class code generator, which build classes based on internal representation of
+ * ORM-related entity
+ * @ingroup Orm_Domain_CodeGenerator
+ */
+abstract class OrmRelatedClassCodeConstructor extends ClassCodeConstructor
+{
+	/**
+	 * object that represents a class to be generated
+	 *
+	 * @var OrmClass
+	 */
+	protected $ormClass;
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * @param OrmClass $ormClass object that represents a class to be generated
+	 */
+	function __construct(OrmClass $ormClass)
+	{
+		$this->ormClass = $ormClass;
+	}
+}
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
-
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

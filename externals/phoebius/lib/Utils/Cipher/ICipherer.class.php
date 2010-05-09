@@ -12,30 +12,44 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Contract for string cipherer
+ *
+ * @ingroup Utils_Cipher
+ */
+interface ICipherer
+{
+	/**
+	 * Sets the key to be used when ciphering the string
+	 *
+	 * @param string $key
+	 * @return ICipherer itself
+	 */
+	function setKey($key);
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * Gets the key used in cipher, if set
+	 * @return string
+	 */
+	function getKey();
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Ciphers the data using the key
+	 * @param string $data
+	 * @return string
+	 */
+	function encrypt($data);
 
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+	/**
+	 * Decrypts the cypher using the key
+	 * @param string $cypher
+	 * @return string
+	 */
+	function decrypt($cypher);
+}
 
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

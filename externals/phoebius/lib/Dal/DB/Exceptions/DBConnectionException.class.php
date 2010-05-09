@@ -12,30 +12,40 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Thrown when the connection to DB fails
+ * @ingroup Dal_DB_Exceptions
+ */
+class DBConnectionException extends DBException
+{
+	/**
+	 * @var DB
+	 */
+	private $db;
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * @param DB $dbHandle DB with failed connection parameters
+	 * @param string $errorMessage actual error string
+	 */
+	function __construct(DB $dbHandle, $errorMessage)
+	{
+		parent::__construct($errorMessage);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+		$this->db = $dbHandle;
+	}
 
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+	/**
+	 * Returns the db handle with connection parameters that failed
+	 * @return DB
+	 */
+	function getDB()
+	{
+		return $this->db;
+	}
+}
 
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

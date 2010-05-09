@@ -12,30 +12,46 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Interface wrapper over internal server state
+ *
+ * @ingroup App_Server
+ */
+interface IServerState
+{
+	/**
+	 * @return array
+	 */
+	function getEnvVars();
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * Aka REQUEST_TIME
+	 *
+	 * @return integer
+	 */
+	function getRequestTime();
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Aka $argv.
+	 *
+	 * Gets the list of arguments passed to the script.
+	 *
+	 * @return array
+	 */
+	function getArgv();
 
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+	/**
+	 * Aka $argc.
+	 *
+	 * Gets the number of arguments passed to the script.
+	 *
+	 * @return integer
+	 */
+	function getArgc();
+}
 
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

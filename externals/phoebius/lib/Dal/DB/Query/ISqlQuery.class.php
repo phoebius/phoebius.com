@@ -12,30 +12,26 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Defines an object that represents a database query.
+ * @ingroup Dal_DB_Query
+ */
+interface ISqlQuery extends ISqlCastable
+{
+	/**
+	 * Gets the database values that should be mapped to database-level placeholers that are
+	 * presented in a query.
+	 *
+	 * This can be extremely useful when using database placeholders and query preparation
+	 * over high-load DB servers with persistent connections.
+	 *
+	 * @return array of scalar
+	 */
+	function getPlaceholderValues(IDialect $dialect);
+}
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
-
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

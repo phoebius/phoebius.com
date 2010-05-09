@@ -12,30 +12,37 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * @ingroup Test
+ */
+final class AllTests
+{
+	const GLOBALS_TEST_PATHS_INDEX = 'testPaths';
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	public static $testPaths = array();
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+	static function main()
+	{
+		PHPUnit_TextUI_TestRunner::run(self::suite());
+	}
 
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+	static function suite()
+	{
+		if (isset($GLOBALS[self::GLOBALS_TEST_PATHS_INDEX])) {
+			self::$testPaths = $GLOBALS[self::GLOBALS_TEST_PATHS_INDEX];
+		}
 
-$application = new StandaloneSiteApplication();
-$application->run();
-	
+		Exceptionizer::getInstance()->register(E_ALL | E_STRICT, false, 'InternalOperationException');
+		return new PhoebiusTestSuite(self::$testPaths);
+	}
+}
+
+if (!defined('PHOEBIUS_CONFIG_LOADED')) {
+	require_once '../../etc/appless.init.php';
+}
+
 ?>

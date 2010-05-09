@@ -12,30 +12,48 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Represents a query result resource.
+ *
+ * @aux
+ * @ingroup Dal_DB
+ */
+class DBQueryResult
+{
+	/**
+	 * @var DB
+	 */
+	private $db;
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * @var resource
+	 */
+	private $resource;
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @param DB $db
+	 * @param resource $resultId
+	 */
+	function __construct(DB $db, $resource)
+	{
+		Assert::isTrue(is_resource($resource) || $resource === true);
 
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+		$this->db = $db;
+		$this->resource = $resource;
+	}
 
-$application = new StandaloneSiteApplication();
-$application->run();
-	
+	/**
+	 * Returns the result.
+	 * @return resource|boolean
+	 */
+	function getResource()
+	{
+		return $this->resource;
+	}
+}
+
 ?>

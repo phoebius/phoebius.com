@@ -12,30 +12,46 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Represents a strategy to obtain and assemble DAO-related entities
+ *
+ * @ingroup Orm_Dao
+ */
+final class FetchStrategy extends Enumeration
+{
+	/**
+	 * fetching is proceeded by request
+	 */
+	const LAZY = 1;
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * not actually "CASCADE" because referential Daos could have another FetchStrategy, e.g. LAZY
+	 */
+	const CASCADE = 2;
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * entity properties are assembled on demand
+	 *
+	 * @return FetchStrategy
+	 */
+	static function lazy()
+	{
+		return new self(self::LAZY);
+	}
 
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+	/**
+	 * entity properties are assembled at once
+	 *
+	 * @return FetchStrategy
+	 */
+	static function cascade()
+	{
+		return new self(self::CASCADE);
+	}
+}
 
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

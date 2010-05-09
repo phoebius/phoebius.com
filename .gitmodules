@@ -1,3 +1,0 @@
-[submodule "doc-src"]
-	path = doc-src
-	url = git://git.phoebius.org/phoebius-doc.git

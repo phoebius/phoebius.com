@@ -12,30 +12,26 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Contract for optimized ORM-related entity mapper.
+ *
+ * This mapper should fill the entities at once by collecting the primitive values and then
+ * mapping it to property objects at once, if possible.
+ *
+ * @ingroup Orm
+ */
+interface IOrmEntityBatchMapper extends IOrmEntityMapper
+{
+	/**
+	 * Tells the mapper that all entities are queued and now can be filled
+	 *
+	 * @return void
+	 */
+	function finish();
+}
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
-
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

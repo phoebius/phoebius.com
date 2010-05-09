@@ -12,30 +12,40 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Represents a stream that writes the contents to file
+ *
+ * @ingroup Utils_Stream
+ */
+class FileWriteStream implements IOutput
+{
+	/**
+	 * @var string
+	 */
+	private $filename;
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * @param string $filename path to a file where to append the contents
+	 */
+	function __construct($filename)
+	{
+		Assert::isScalar($filename);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+		$this->filename = $filename;
 
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+		file_put_contents($filename, null);
+	}
 
-$application = new StandaloneSiteApplication();
-$application->run();
-	
+	function write($buffer)
+	{
+		file_put_contents($this->filename, $buffer, FILE_APPEND);
+
+		return $this;
+	}
+}
+
 ?>

@@ -12,30 +12,37 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Thrown every time the PostgreSQL raises an error on the passed query
+ * @ingroup Dal_DB_Exceptions
+ */
+final class PgSqlQueryException extends DBQueryException
+{
+	private $sqlState;
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * @param ISqlQuery $query
+	 * @param string $errormsg
+	 * @param scalar $errorno
+	 */
+	function __construct(ISqlQuery $query, $errormsg, $errorno)
+	{
+		$this->sqlState = $errorno;
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+		parent::__construct($query, $errormsg, 0);
+	}
 
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+	/**
+	 * @return PgSqlError
+	 */
+	function getSystemMessage()
+	{
+		return new PgSqlError($this->sqlState);
+	}
+}
 
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>

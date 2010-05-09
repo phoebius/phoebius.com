@@ -12,30 +12,51 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Represents the ordering direction
+ *
+ * @ingroup Dal_DB_Sql
+ */
+final class OrderDirection extends Enumeration implements ISqlCastable
+{
+	/**
+	 * Ascending
+	 */
+	const ASC = 'ASC';
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * Descending
+	 */
+	const DESC = 'DESC';
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Creates an instance of ascending OrderDirection
+	 *
+	 * @return OrderDirection
+	 */
+	static function asc()
+	{
+		return new self(self::ASC);
+	}
 
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
+	/**
+	 * Creates an instance of descending OrderDirection
+	 *
+	 * @return OrderDirection
+	 */
+	static function desc()
+	{
+		return new self(self::DESC);
+	}
 
-$application = new StandaloneSiteApplication();
-$application->run();
-	
+	function toDialectString(IDialect $dialect)
+	{
+		return $this->getValue();
+	}
+}
+
 ?>

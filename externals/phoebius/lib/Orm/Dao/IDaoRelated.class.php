@@ -12,30 +12,31 @@
  * either version 3 of the License, or (at your option) any later version.
  *
  * You should have received a copy of the GNU Lesser General Public License along with
- * this program; if not, see <http://www.gnu.org/licenses/>. 
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  *
  ************************************************************************************************/
 
-define('APP_ROOT', join(
-		DIRECTORY_SEPARATOR,
-		array_slice(
-			explode(DIRECTORY_SEPARATOR, dirname(__FILE__)), 0, -1
-		)
-	)
-);
+/**
+ * Defines an entity that is related to ORM and is stored in the database.
+ * Such an entity can be assembled and disassembled by IOrmEntityMapper and queried by IOrmEntityAccessor
+ *
+ * @ingroup Orm_Dao
+ */
+interface IDaoRelated extends IOrmRelated
+{
+	/**
+	 * Gets the object that allows querying
+	 *
+	 * @return IOrmEntityAccessor
+	 */
+	static function dao();
 
-require ( APP_ROOT . '/externals/phoebius/etc/app.init.php' );
-require ( APP_ROOT . '/etc/config.php' );
+	/**
+	 * Gets the high-level query
+	 *
+	 * @return EntityQuery
+	 */
+	static function query();
+}
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-require
-		APP_ROOT . DIRECTORY_SEPARATOR .
-		'cfg' . DIRECTORY_SEPARATOR .
-		APP_SLOT . DIRECTORY_SEPARATOR .
-		'config.php';
-
-$application = new StandaloneSiteApplication();
-$application->run();
-	
 ?>
