@@ -16,8 +16,38 @@
  *
  ************************************************************************************************/
 
-$this->model->set('title', $this->entries[0]->getTitle());
+$this->setMaster(
+	'content.master',
+	new Model(array(
+		'title' => 'News'
+	))
+);
+?>
+ <!--Content-->
+  <div class="content">
+    <div class="container column">
 
-$this->setMaster('content.master');
+      <div class="columns">
+         <!--Left panel-->
+         <div class="left">
+            <div class="container">
+            </div>
+         </div>
+         <!--Left panel-->
+         <!--Main content-->
+         <div class="main">
+            <div class="container">
+              <h1>News</h1>
+              <div class="article">
+                  <? $this->renderPartial("parts/news_table"); ?>
+              </div>
+            </div>
+         </div>
+         <!--Main content-->
+      </div>
+      <div class="cleaner"></div>
 
-$this->renderPartial('blog/entry-list');
+    </div>
+  </div>
+  <!--Content-->
+

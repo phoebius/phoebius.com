@@ -22,6 +22,51 @@
  */
 class CustomPageController extends BasePhoebiusController
 {
+	const LIMIT_ENTRIES_PER_PAGE = 10;
+
+	function action_index()
+	{
+		$announcements =
+			EntityQuery::create(Announcement::orm())
+				->orderBy(OrderBy::desc('date'))
+				->setLimit(self::LIMIT_ENTRIES_PER_PAGE)
+				->setOffset(0)
+				->getList();
+
+		$release =
+			PhoebiusRelease::query()
+				->orderBy(OrderBy::desc('date'))
+				->setLimit(1)
+				->getEntity();
+
+		$this->getModel()->append(array(
+			'release' => $release,
+			'announcements' => $announcements,
+			'breadScrumbs' => array(
+			)
+		));
+
+		return 'index';
+	}
+
+	function action_newsList()
+	{
+		$announcements =
+			EntityQuery::create(Announcement::orm())
+				->orderBy(OrderBy::desc('date'))
+				->setLimit(self::LIMIT_ENTRIES_PER_PAGE)
+				->setOffset(0)
+				->getList();
+
+		$this->getModel()->append(array(
+			'announcements' => $announcements,
+			'breadScrumbs' => array(
+			)
+		));
+
+		return 'news';
+	}
+
 	function action_404()
 	{
 		$this->getTrace()->getWebContext()->getResponse()->setStatus(

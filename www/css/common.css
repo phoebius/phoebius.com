@@ -426,3 +426,19 @@ input, select, textarea {
 	height:16px;
 }
 
+table.news td {
+	padding: 1px;
+}
+
+.news .date {
+	vertical-align: top;
+	font-size: 8pt;
+	padding-right:10px;
+	text-decoration: italic;
+}
+
+.news .ann {
+	width:400px;
+	font-size: 8pt;
+}
+

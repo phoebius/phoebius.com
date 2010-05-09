@@ -18,4 +18,18 @@
 
 $this->setMaster('index.master');
 
-$this->renderPartial('blog/paginated-entry-list');
+?>
+<!--Content-->
+  <div class="content">
+    <div class="container">
+    
+      <div class="article">
+			<h2>Latest news</h2>
+			<p>
+				<? $this->renderPartial("parts/news_table"); ?>
+			</p>
+	  </div> 
+    </div> 
+  </div>
+  <!--Content-->
+  

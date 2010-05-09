@@ -33,15 +33,11 @@ abstract class BasePhoebiusController extends ActionBasedController
 	 */
 	private $isAdminAuthorized = false;
 
-	/**
-	 * @throws RouteHandleException
-	 * @return void
-	 */
-	function handle(Trace $trace)
+	function processAction($action, ReflectionMethod $method)
 	{
-		$this->checkCredentials($trace);
+		$this->checkCredentials($this->getTrace());
 
-		parent::handle($trace);
+		return parent::processAction($action, $method);
 	}
 
 	protected function checkCredentials(Trace $trace)

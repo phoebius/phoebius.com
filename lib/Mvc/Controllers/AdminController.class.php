@@ -21,7 +21,6 @@
  */
 class AdminController extends BaseSiteAdminController
 {
-
 	protected function checkCredentials(Trace $trace)
 	{
 		parent::checkCredentials($trace);
@@ -34,70 +33,132 @@ class AdminController extends BaseSiteAdminController
 	function action_login($email = null, $password = null)
 	{
 		if ($email && $password && $this->tryLogIn($email, $password)) {
-			return $this->redirect('index');
+			return $this->redirect('adminNewAnnouncement');
 		}
 
 		return 'admin/login';
 	}
 
-	function action_deleteEntry(Integer $id)
+	function action_editAnnouncement(Integer $id, array $data = null, $action = null)
 	{
-		BlogEntry::dao()->dropEntityById($id->getValue());
+		$ann = Announcement::dao()->getEntityById($id->getValue());
 
-		return $this->redirect('index');
-	}
+		if ($action == 'Delete') {
+			$ann->drop();
 
-	function action_editEntry(Integer $id, array $entryData = null)
-	{
-		$entry = BlogEntry::dao()->getEntityById($id->getValue());
+			return $this->redirect('news');
+		}
+		else if ($action == 'Save' && is_array($data)) {
+			$this->fillAnnouncement($data, $ann);
+			$ann->save();
 
-		if (is_array($entryData)) {
-			$this->fillEntry($entryData, $entry);
-			$entry->save();
-
-			return $this->redirect('adminEditEntry', array('id' => $entry->getId()));
+			return $this->redirect('adminEditAnnouncement', array('id' => $ann->getId()));
 		}
 
 		$this->getModel()->append(
 			array(
-				'entry' => $entry
+				'announcement' => $ann
 			)
 		);
 
-		return 'admin/entry';
+		return 'admin/announcement';
 	}
 
-	function action_newEntry(array $entryData = null)
+	function action_newAnnouncement(array $data = null)
 	{
-		if (is_array($entryData)) {
-			$entry = $this->fillEntry($entryData, new BlogEntry);
-			$entry->save();
+		if (is_array($data)) {
+			$ann = $this->fillAnnouncement($data, new Announcement);
+			$ann->save();
 
-			return $this->redirect('adminNewEntry');
+			return $this->redirect('news');
 		}
 
 		$this->getModel()->append(
 			array(
-				'entry' => new BlogEntry
+				'announcement' => new Announcement
 			)
 		);
 
-		return 'admin/entry';
+		return 'admin/announcement';
 	}
 
-	private function fillEntry(array $entryData, BlogEntry $entry)
+	function action_editRelease(Integer $id, array $data = null, $action = null)
 	{
-		$entry
-			->setTitle($entryData['title'])
-			->setText($entryData['text'])
-			->setRestId($entryData['restId'])
-			->setPubDate(new Date($entryData['pubDate']))
-			->setPubTime(
-				Timestamp::create($entryData['pubDate'])
-					->spawn(Time::now()->toFormattedString())
-				);
+		$release = PhoebiusRelease::dao()->getEntityById($id->getValue());
 
-		return $entry;
+		if ($action == 'Delete') {
+			$release->drop();
+
+			return $this->redirect('adminReleases');
+		}
+		else if ($action == 'Save' && is_array($data)) {
+			$this->fillRelease($data, $release);
+			$release->save();
+
+			return $this->redirect('adminEditRelease', array('id' => $release->getId()));
+		}
+
+		$this->getModel()->append(
+			array(
+				'release' => $release
+			)
+		);
+
+		return 'admin/release';
+	}
+
+	function action_newRelease(array $data = null)
+	{
+		if (is_array($data)) {
+			$release = $this->fillRelease($data, new PhoebiusRelease);
+			$release->save();
+
+			return $this->redirect('adminReleases');
+		}
+
+		$this->getModel()->append(
+			array(
+				'release' => new PhoebiusRelease
+			)
+		);
+
+		return 'admin/release';
+	}
+
+	function action_releases()
+	{
+		$releases = 
+			PhoebiusRelease::query()
+				->orderBy(OrderBy::desc('date'))
+				->getList();
+
+		$this->getModel()->append(
+			array(
+				'releases' => $releases
+			)
+		);
+
+		return 'admin/releases';
+	}
+
+	private function fillRelease(array $data, PhoebiusRelease $release)
+	{
+		$release
+			->setDate(new Date($data['date']))
+			->setVersion($data['version'])
+			->setDescription($data['description'])
+			->setLink($data['link']);
+
+		return $release;
+	}
+
+	private function fillAnnouncement(array $data, Announcement $ann)
+	{
+		$ann
+			->setText($data['text'])
+			->setDate(new Date($data['date']));
+
+		return $ann;
 	}
 
 	private function tryLogIn($email, $password)

@@ -16,11 +16,19 @@
  *
  ************************************************************************************************/
 
-$this->setMaster(
-	'content.master',
-	new Model(array(
-		'title' => 'Phoebius blog'
-	))
-);
+$this->expect('announcements');
 
-$this->renderPartial('blog/paginated-entry-list');
+?>
+<table class="news">
+<? foreach ($this->model["announcements"] as $ann) { ?>
+	<tr>
+		<td class="date"><i><?=$ann->getDate()->toFormattedString('Y/m/d')?></i></td>
+		<td class="ann">
+			<?=$ann->getText()?>
+			<? if ($this->isAdmin) { ?>
+				&#151; <?=$this->getHtmlLink('edit', 'adminEditAnnouncement', array('id' => $ann->getId()))?>
+			<? } ?>
+		</td>
+	</tr>
+<? } ?>
+</table>

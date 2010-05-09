@@ -9,6 +9,9 @@
 tmp/*
 !tmp/.keepdir
 
+log/*
+!log/.keepdir
+
 www/*.html
 www/support/
 www/src/

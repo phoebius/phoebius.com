@@ -24,7 +24,7 @@ $this->accept('isAdmin', 'activeMenuItem');
 	$menu = array(
 		'Download' => '/download.html',
 		'Support' => '/support/',
-		'Blog' => '/blog/',
+		'News' => '/news/',
 		'About' => '/about.html'
 	);
 
@@ -37,10 +37,13 @@ $this->accept('isAdmin', 'activeMenuItem');
 	}
 
 	if ($this->isAdmin) {
-		?><li><a<?=(
+		?>
+		<li><a<?=(
 			$item == $this->activeMenuItem
 				? ' class="selected"'
 				: ''
-		)?> href="/admin/entry/">New blog entry</a></li><?
+		)?> href="/admin/announcement/">Announcement</a></li>
+		<li><?=$this->getHtmlLink('Releases', 'adminReleases')?></li>
+		<?
 	}
 ?></ul>

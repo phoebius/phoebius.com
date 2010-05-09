@@ -18,14 +18,12 @@
 
 /**
  * /
- * /blog/
- * /blog/?skip=1
- * /blog/01.11.2009/
- * /blog/01.11.2009/new-orm
+ * /news/
  * /feedback/
  * /search/
  * /admin/
- * /admin/entry/?id
+ * /admin/announcement/?id
+ * /admin/release/?id
  *
  * @ingroup Phoebius_Mvc
  */
@@ -41,24 +39,6 @@ class PhoebiusRouter extends ChainedRouter
 	protected function fillRoutes()
 	{
 		$this->route(
-			'blogEntry',
-			'/blog:controller/:date/:entryRestId*',
-			array('action' => 'showEntry')
-		);
-
-		$this->route(
-			'blogEntriesByDate',
-			'/blog:controller/:date/',
-			array('action' => 'showBlogEntriesByDate')
-		);
-
-		$this->route(
-			'blogIndex',
-			'/blog:controller/',
-			array('action' => 'showBlogIndex')
-		);
-
-		$this->route(
 			'feedback',
 			'/feedback/',
 			array('controller' => 'CustomPage', 'action' => 'feedback')
@@ -71,21 +51,33 @@ class PhoebiusRouter extends ChainedRouter
 		);
 
 		$this->route(
-			'adminEditEntry',
-			'/admin:controller/entry/?id',
-			array('action' => 'editEntry')
+			'adminEditAnnouncement',
+			'/admin:controller/announcement/?id',
+			array('action' => 'editAnnouncement')
 		);
 
 		$this->route(
-			'adminDeleteEntry',
-			'/admin:controller/entry/delete/?id',
-			array('action' => 'deleteEntry')
+			'adminNewAnnouncement',
+			'/admin:controller/announcement/',
+			array('action' => 'newAnnouncement')
 		);
 
 		$this->route(
-			'adminNewEntry',
-			'/admin:controller/entry/',
-			array('action' => 'newEntry')
+			'adminEditRelease',
+			'/admin:controller/release/?id',
+			array('action' => 'editRelease')
+		);
+
+		$this->route(
+			'adminNewRelease',
+			'/admin:controller/release/',
+			array('action' => 'newRelease')
+		);
+
+		$this->route(
+			'adminReleases',
+			'/admin:controller/releases/',
+			array('action' => 'releases')
 		);
 
 		$this->route(
@@ -95,9 +87,15 @@ class PhoebiusRouter extends ChainedRouter
 		);
 
 		$this->route(
+			'news',
+			'/news/',
+			array('controller' => 'CustomPage', 'action' => 'newsList')
+		);
+
+		$this->route(
 			'index',
 			'/',
-			array('controller' => 'Blog', 'action' => 'showIndex')
+			array('controller' => 'CustomPage', 'action' => 'index')
 		);
 
 		$fallbackRoute = new Route(
