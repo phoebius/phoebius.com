@@ -35,12 +35,44 @@ require
 	APP_SLOT . DIRECTORY_SEPARATOR .
 	'config.php';
 
+function message($m)
+{
+	echo $m, PHP_EOL;
+}
+
+function stop($m = null)
+{
+	if ($m) {
+		message($m);
+		echo PHP_EOL;
+	}
+
+	help();
+	
+	exit (1);
+}
+
+function help()
+{
+	global $argv;
+
+	echo <<<EOT
+Usage: {$argv[0]} phoebius-src/
+
+where phoebius-src/ is a directory with Phoebius distribution.
+
+EOT;
+}
+
 if (!isset($argv[1]))
-	die ('usage: php make-api.php phoebius-src/');
+	stop();
 
 $frameworkPath = realpath($argv[1]);
-if (!is_directory($argv[1]))
-	die ('usage: php make-api.php phoebius-src/');
+if (!is_dir($frameworkPath))
+	stop ('Incorrect path to Phoebius directory');
+
+if (!is_file($frameworkPath . '/doc/ns/groups.xml'))
+	stop ('Incorrect path to Phoebius directory (doc/ns/groups.xml not found at '.$frameworkPath.')');
 
 $rootDoxyGroup =
 	XmlDoxyGroupBuilder::create($frameworkPath . '/doc/ns/groups.xml')
