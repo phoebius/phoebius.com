@@ -1,16 +1,6 @@
 .*
-!.keepdir
-
-*.phpproj
-*.puo
-*.sln
-*.suo
-
 tmp/*
-!tmp/.keepdir
-
 log/*
-!log/.keepdir
 
 www/*.html
 www/support/
