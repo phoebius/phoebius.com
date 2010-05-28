@@ -28,6 +28,7 @@ DBPool::add(
 		->setDBName('phoebius-site')
 		->setEncoding('utf8')
 		->setUser('phoebius')
+		->setHost('')
 		// do not set host=localhost to avoid using TCP/IP
 		// pwd is empty as we use 'ident sameuser' authentication
 );
