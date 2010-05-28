@@ -10,3 +10,6 @@ git archive --prefix=phoebius-app/ HEAD^{tree} | gzip > ~phoebius/phoebius.org/w
 
 cd ~phoebius/git/phoebius-site.git
 git archive --prefix=phoebius-site/ HEAD^{tree} | gzip > ~phoebius/phoebius.org/www/src/phoebius-site-latest.tar.gz
+
+cd ~phoebius/git/phoebius-ajax-example.git
+git archive --prefix=phoebius-ajax-example/ HEAD^{tree} | gzip > ~phoebius/phoebius.org/www/src/phoebius-ajax-example-latest.tar.gz
